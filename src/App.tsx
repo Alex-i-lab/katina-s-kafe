@@ -597,6 +597,7 @@ function AppLayout() {
             className="w-10 h-10 object-contain" 
             referrerPolicy="no-referrer"
           />
+          <span className="hidden lg:inline-block text-xl font-light tracking-[0.2em] uppercase">Katina's Kafé</span>
         </Link>
         
         <div className="hidden md:flex items-center gap-8 text-xs uppercase tracking-widest font-medium">

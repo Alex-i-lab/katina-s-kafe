@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ShoppingBag, Plus, Minus, X, ArrowRight, CreditCard, CheckCircle } from 'lucide-react';
 import { FULL_MENU_ITEMS, MenuItem } from './data';
@@ -8,6 +8,15 @@ export default function OrderPage() {
   const [cart, setCart] = useState<{item: MenuItem, quantity: number}[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [checkoutStep, setCheckoutStep] = useState<'cart' | 'details' | 'success'>('cart');
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  // Clear toast after 3 seconds
+  useEffect(() => {
+    if (toastMessage) {
+      const timer = setTimeout(() => setToastMessage(null), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [toastMessage]);
 
   const displayedItems = searchQuery.trim().length > 0 
     ? FULL_MENU_ITEMS.filter(item => 
@@ -28,7 +37,7 @@ export default function OrderPage() {
       }
       return [...prev, { item, quantity: 1 }];
     });
-    setIsCartOpen(true);
+    setToastMessage(`Added ${item.name} to cart`);
   };
 
   const updateQuantity = (itemName: string, delta: number) => {
@@ -39,6 +48,12 @@ export default function OrderPage() {
       }
       return cartItem;
     }).filter(cartItem => cartItem.quantity > 0));
+  };
+
+  const clearCart = () => {
+    if (window.confirm('Are you sure you want to clear your cart?')) {
+      setCart([]);
+    }
   };
 
   const parsePrice = (priceStr: string) => {
@@ -94,7 +109,7 @@ export default function OrderPage() {
         </div>
 
         {/* Menu Grid */}
-        <div className="grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12 gap-6 xl:gap-8">
+        <div className="grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12 gap-6 xl:gap-8 relative">
           <div className="col-span-4 md:col-span-8 xl:col-span-8">
             {searchQuery.trim().length === 0 ? (
                <div className="text-center py-24 border border-zinc-800 bg-zinc-900/40">
@@ -115,23 +130,35 @@ export default function OrderPage() {
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.95 }}
                       transition={{ duration: 0.3 }}
-                      className="bg-zinc-900/40 border border-zinc-800 p-6 flex flex-col justify-between"
+                      className="bg-zinc-900/40 border border-zinc-800 flex flex-col group hover:border-zinc-500 transition-colors"
                     >
-                      <div>
-                        <div className="flex justify-between items-start mb-4">
-                          <h3 className="text-lg font-light text-white">{item.name}</h3>
-                          <span className="text-zinc-300">RWF {parsePrice(item.price).toFixed(2)}</span>
+                      {item.image && (
+                         <div className="w-full h-48 overflow-hidden border-b border-zinc-800">
+                           <img 
+                             src={item.image} 
+                             alt={item.name} 
+                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+                             referrerPolicy="no-referrer"
+                           />
+                         </div>
+                      )}
+                      <div className="p-6 flex flex-col flex-1 justify-between">
+                        <div>
+                          <div className="flex justify-between items-start mb-4">
+                            <h3 className="text-lg font-light text-white group-hover:text-zinc-300 transition-colors">{item.name}</h3>
+                            <span className="text-zinc-300">RWF {parsePrice(item.price).toFixed(2)}</span>
+                          </div>
+                          {item.description && (
+                            <p className="text-sm font-light text-zinc-500 mb-6">{item.description}</p>
+                          )}
                         </div>
-                        {item.description && (
-                          <p className="text-sm font-light text-zinc-500 mb-6">{item.description}</p>
-                        )}
+                        <button
+                          onClick={() => addToCart(item)}
+                          className="w-full flex items-center justify-center gap-2 border border-zinc-700 py-3 text-xs uppercase tracking-widest text-zinc-300 hover:bg-white hover:text-black hover:border-white transition-all mt-auto"
+                        >
+                          <Plus className="w-4 h-4" /> Add
+                        </button>
                       </div>
-                      <button
-                        onClick={() => addToCart(item)}
-                        className="w-full flex items-center justify-center gap-2 border border-zinc-700 py-3 text-xs uppercase tracking-widest text-zinc-300 hover:bg-white hover:text-black hover:border-white transition-all mt-auto"
-                      >
-                        <Plus className="w-4 h-4" /> Add
-                      </button>
                     </motion.div>
                   ))}
                 </AnimatePresence>
@@ -140,7 +167,7 @@ export default function OrderPage() {
           </div>
 
           {/* Cart Sidebar (Desktop) / Floating (Mobile implementation can be adapted) */}
-          <div className="col-span-4 md:col-span-8 xl:col-span-4 lg:sticky lg:top-32 self-start">
+          <div className="col-span-4 md:col-span-8 xl:col-span-4 lg:sticky lg:top-32 self-start hidden lg:block">
              <div className="bg-zinc-900 border border-zinc-800 p-8">
                 <div className="flex items-center gap-3 mb-8 border-b border-zinc-800 pb-4">
                   <ShoppingBag className="w-5 h-5 text-zinc-400" />
@@ -190,6 +217,13 @@ export default function OrderPage() {
                           className="w-full py-4 mt-6 bg-white text-black text-xs uppercase tracking-widest font-semibold hover:bg-zinc-200 transition-colors flex items-center justify-center gap-2"
                         >
                           Checkout <ArrowRight className="w-4 h-4"/>
+                        </button>
+                        
+                        <button 
+                          onClick={clearCart}
+                          className="w-full py-3 mt-4 border border-zinc-800 text-zinc-500 text-xs uppercase tracking-widest hover:text-white hover:border-white transition-colors"
+                        >
+                          Clear Cart
                         </button>
                       </>
                     )}
@@ -242,6 +276,173 @@ export default function OrderPage() {
           </div>
         </div>
       </div>
+      
+      {/* Mobile Floating Cart Summary */}
+      <AnimatePresence>
+        {totalItems > 0 && !isCartOpen && (
+          <motion.div 
+            initial={{ opacity: 0, y: 100 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 100 }}
+            className="fixed bottom-0 left-0 right-0 p-4 z-40 lg:hidden bg-gradient-to-t from-black via-black/90 to-transparent pt-12 text-center"
+          >
+            <button 
+               onClick={() => {
+                 window.scrollTo({ top: 0, behavior: 'smooth' });
+                 const sidebar = document.querySelector('.lg\\:hidden.fixed.z-50');
+                 if(sidebar) {
+                   // A full mobile cart implementation would go here, mapped below
+                   setIsCartOpen(true);
+                 }
+               }}
+               className="w-full max-w-sm mx-auto bg-white text-black font-semibold text-xs uppercase tracking-widest py-4 px-6 shadow-2xl flex justify-between items-center rounded-sm border border-white/20"
+            >
+              <div className="flex items-center gap-3">
+                <ShoppingBag className="w-4 h-4" />
+                <span>{totalItems} items</span>
+              </div>
+              <span>RWF {totalAmount.toFixed(2)}</span>
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Floating Mobile Cart Modal */}
+      <AnimatePresence>
+        {isCartOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex flex-col lg:hidden"
+          >
+             <div className="flex justify-between items-center p-6 border-b border-zinc-900 bg-zinc-950 sticky top-0 z-10">
+                <h2 className="text-lg font-light text-white uppercase tracking-widest flex items-center gap-3">
+                  <ShoppingBag className="w-5 h-5 text-zinc-400" />
+                  Your Order
+                </h2>
+                <button onClick={() => setIsCartOpen(false)} className="p-2 border border-zinc-800 rounded-full hover:bg-zinc-800">
+                  <X className="w-5 h-5 text-zinc-400" />
+                </button>
+             </div>
+             
+             <div className="flex-1 overflow-y-auto p-6 bg-zinc-950">
+               {cart.length === 0 ? (
+                  <div className="text-center py-12 text-zinc-500 font-light">
+                    Your cart is empty.<br/> Add some delicious items!
+                  </div>
+                ) : (
+                  <div className="space-y-8">
+                    {checkoutStep === 'cart' && (
+                      <>
+                        <div className="space-y-6">
+                          {cart.map((cartItem) => (
+                            <div key={cartItem.item.name} className="flex flex-col gap-3 group border-b border-zinc-900 pb-4">
+                              <div className="flex justify-between items-center">
+                                <h4 className="text-sm font-light text-white">{cartItem.item.name}</h4>
+                                <span className="text-sm text-zinc-400 font-mono">RWF {(parsePrice(cartItem.item.price) * cartItem.quantity).toFixed(2)}</span>
+                              </div>
+                              <div className="flex items-center gap-4">
+                                <button onClick={() => updateQuantity(cartItem.item.name, -1)} className="w-10 h-10 flex justify-center items-center border border-zinc-700 hover:bg-zinc-800 rounded-full bg-zinc-900 text-white">
+                                  <Minus className="w-4 h-4 text-zinc-300" />
+                                </button>
+                                <span className="text-sm w-4 text-center">{cartItem.quantity}</span>
+                                <button onClick={() => updateQuantity(cartItem.item.name, 1)} className="w-10 h-10 flex justify-center items-center border border-zinc-700 hover:bg-zinc-800 rounded-full bg-zinc-900 text-white">
+                                  <Plus className="w-4 h-4 text-zinc-300" />
+                                </button>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+
+                        <div className="border-t border-zinc-800 pt-6 space-y-4">
+                          <div className="flex justify-between text-white text-lg font-light pt-2">
+                            <span>Total</span>
+                            <span>RWF {totalAmount.toFixed(2)}</span>
+                          </div>
+                        </div>
+
+                        <button 
+                          onClick={() => setCheckoutStep('details')}
+                          className="w-full py-4 mt-6 bg-white text-black text-xs uppercase tracking-widest font-semibold hover:bg-zinc-200 transition-colors flex items-center justify-center gap-2"
+                        >
+                          Checkout <ArrowRight className="w-4 h-4"/>
+                        </button>
+                        
+                        <button 
+                          onClick={() => { clearCart(); setIsCartOpen(false); }}
+                          className="w-full py-3 mt-4 border border-zinc-800 text-zinc-500 text-xs uppercase tracking-widest hover:text-white hover:border-white transition-colors"
+                        >
+                          Clear Cart
+                        </button>
+                      </>
+                    )}
+
+                    {checkoutStep === 'details' && (
+                      <form onSubmit={(e) => { e.preventDefault(); setCheckoutStep('success'); }} className="space-y-6">
+                         <div className="space-y-4">
+                            <div>
+                               <label className="text-[10px] uppercase tracking-widest text-zinc-500 block mb-2">Name</label>
+                               <input required type="text" className="w-full bg-transparent border-b border-zinc-700 py-3 text-white focus:outline-none focus:border-white font-light"/>
+                            </div>
+                            <div>
+                               <label className="text-[10px] uppercase tracking-widest text-zinc-500 block mb-2">Email</label>
+                               <input required type="email" className="w-full bg-transparent border-b border-zinc-700 py-3 text-white focus:outline-none focus:border-white font-light"/>
+                            </div>
+                            <div>
+                               <label className="text-[10px] uppercase tracking-widest text-zinc-500 block mb-2">Pickup Time</label>
+                               <select required className="w-full bg-transparent border-b border-zinc-700 py-3 text-white focus:outline-none focus:border-white font-light [&>option]:bg-zinc-900">
+                                 <option value="asap">ASAP (15-20 mins)</option>
+                                 <option value="30m">In 30 Minutes</option>
+                                 <option value="1h">In 1 Hour</option>
+                               </select>
+                            </div>
+                         </div>
+                         
+                         <div className="pt-6 flex gap-4">
+                            <button type="button" onClick={() => setCheckoutStep('cart')} className="flex-1 py-4 border border-zinc-700 text-zinc-400 text-xs uppercase tracking-widest hover:text-white hover:border-white transition-colors">
+                              Back
+                            </button>
+                            <button type="submit" className="flex-1 text-center py-4 bg-white text-black text-xs uppercase tracking-widest font-semibold hover:bg-zinc-200 transition-colors">
+                              Pay Now
+                            </button>
+                         </div>
+                      </form>
+                    )}
+
+                    {checkoutStep === 'success' && (
+                      <div className="text-center py-8">
+                         <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-6" />
+                         <h3 className="text-2xl font-light text-white mb-2">Order Confirmed!</h3>
+                         <p className="text-zinc-400 font-light mb-8">We're preparing your order. We'll email you a receipt soon.</p>
+                         <button onClick={() => { setCart([]); setCheckoutStep('cart'); setIsCartOpen(false); }} className="w-full py-4 border border-zinc-700 text-white text-xs uppercase tracking-widest hover:bg-white hover:text-black transition-colors">
+                            Done
+                         </button>
+                      </div>
+                    )}
+                  </div>
+                )}
+             </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Toast Notification */}
+      <AnimatePresence>
+        {toastMessage && (
+          <motion.div
+            initial={{ opacity: 0, y: 50, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.9 }}
+            className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 bg-white text-black px-6 py-3 shadow-2xl flex items-center gap-3 rounded-full font-medium text-sm"
+          >
+            <CheckCircle className="w-4 h-4 text-green-600" />
+            {toastMessage}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
     </div>
   );
 }
+
