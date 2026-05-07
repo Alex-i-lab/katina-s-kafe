@@ -1,0 +1,196 @@
+export interface MenuItem {
+  name: string;
+  price: string;
+  description: string;
+  category: string;
+  image?: string;
+}
+
+export const MENU_ITEMS: MenuItem[] = [
+  { name: "The Katina's Pour", price: "RWF 6", description: "Single-origin pour over, floral notes, clean finish.", category: "Specialty", image: "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&q=80&w=150" },
+  { name: "Vintage Vanilla Latte", price: "RWF 5", description: "Espresso, house-made bourbon vanilla bean syrup, microfoam.", category: "Specialty", image: "https://images.unsplash.com/photo-1551030173-122aabc4489c?auto=format&fit=crop&q=80&w=150" },
+  { name: "Avocado & Egg Tartine", price: "RWF 10", description: "Sourdough, smashed avocado, poached egg, chili flakes.", category: "Bites", image: "https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&q=80&w=150" },
+  { name: "Almond Croissant", price: "RWF 4", description: "Twice baked, frangipane filling, powdered sugar.", category: "Bites", image: "https://images.unsplash.com/photo-1509365465994-3e21ba3e18a0?auto=format&fit=crop&q=80&w=150" },
+];
+
+export const FULL_MENU_ITEMS: MenuItem[] = [
+  // COFFEE
+  { name: "Espresso", price: "RWF 2", description: "A balanced shot of our classic roast.", category: "Coffee & Tea" },
+  { name: "Decaf Coffee", price: "RWF 3", description: "All the flavor, none of the caffeine.", category: "Coffee & Tea" },
+  { name: "Hot/Iced Americano", price: "RWF 2 / 3", description: "Espresso with hot or cold water.", category: "Coffee & Tea" },
+  { name: "Hot/Iced Cappuccino", price: "RWF 4", description: "Espresso with steamed milk and a deep layer of foam.", category: "Coffee & Tea" },
+  { name: "Hot/Iced Latte", price: "RWF 4", description: "Espresso with steamed milk and a light layer of foam.", category: "Coffee & Tea", image: "https://images.unsplash.com/photo-1551030173-122aabc4489c?auto=format&fit=crop&q=80&w=150&grayscale=true" },
+  { name: "Hot/Iced Mocha", price: "RWF 6", description: "Espresso, chocolate, and steamed milk.", category: "Coffee & Tea" },
+  { name: "Hot/Iced Vanilla Latte", price: "RWF 5", description: "Vanilla infused latte.", category: "Coffee & Tea" },
+  { name: "Espresso Lemonade", price: "RWF 4", description: "Refreshing and energizing.", category: "Coffee & Tea" },
+  { name: "Hot/Iced Caramel Macchiato", price: "RWF 5", description: "A blend of coffee, milk, and caramel.", category: "Coffee & Tea" },
+  { name: "Hot/Iced Caramel Latte", price: "RWF 5", description: "Latte with caramel.", category: "Coffee & Tea" },
+  { name: "Hot/Iced Chocolate", price: "RWF 4 / 5", description: "Rich and creamy.", category: "Coffee & Tea" },
+  { name: "African Tea", price: "RWF 3", description: "Traditional spiced tea.", category: "Coffee & Tea" },
+  { name: "Green Tea", price: "RWF 3", description: "Light and refreshing.", category: "Coffee & Tea" },
+  { name: "Black Tea", price: "RWF 3", description: "Classic black tea.", category: "Coffee & Tea" },
+  { name: "Spice Tea Cup/Pot", price: "RWF 3 / 5", description: "Aromatic and warming.", category: "Coffee & Tea" },
+  { name: "Iced Black Tea", price: "RWF 4", description: "Chilled classic black tea.", category: "Coffee & Tea" },
+  { name: "French Press", price: "RWF 4", description: "Smooth and full-bodied.", category: "Coffee & Tea" },
+  { name: "Chemex/V60", price: "RWF 5", description: "Clean and vibrant manual brew.", category: "Coffee & Tea" },
+  { name: "Soya Milk / Almond Milk / Oat Milk", price: "RWF 1", description: "Plant-based milk alternatives.", category: "Coffee & Tea" },
+  { name: "Flavored Syrup", price: "RWF 1", description: "Hazelnut, Caramel, Vanilla, Chocolate Cookie.", category: "Coffee & Tea" },
+  { name: "Hot/Iced Matcha Tea", price: "RWF 6 / 7", description: "Premium green tea powder.", category: "Coffee & Tea" },
+  { name: "Iced Mango Matcha Tea", price: "RWF 8", description: "Matcha with a tropical twist.", category: "Coffee & Tea" },
+  { name: "Iced Strawberry Matcha Tea", price: "RWF 9", description: "Original Matcha, Vanilla Matcha, Chocolate Matcha depending on availability.", category: "Coffee & Tea" },
+
+  // WINE & BEER
+  { name: "G Grand Carignan VV", price: "RWF 8 / 32", description: "Glass / Bottle", category: "Wine & Beer", image: "https://images.unsplash.com/photo-1584916201218-f4242ceb4809?auto=format&fit=crop&q=80&w=150&grayscale=true" },
+  { name: "Beaute du Sud Pays BOC", price: "RWF 8 / 30", description: "Glass / Bottle", category: "Wine & Beer" },
+  { name: "Les Courtines Cab/Merlot", price: "RWF 9 / 34", description: "Glass / Bottle", category: "Wine & Beer" },
+  { name: "Rocher Calon Mont St Em", price: "RWF 10 / 40", description: "Glass / Bottle", category: "Wine & Beer" },
+  { name: "Marina Gros Manseng", price: "RWF 9 / 36", description: "Glass / Bottle", category: "Wine & Beer" },
+  { name: "Marsolay Chardonnay", price: "RWF 9 / 34", description: "Glass / Bottle", category: "Wine & Beer" },
+  { name: "Les Petits Plots Sauvignon", price: "RWF 7 / 28", description: "Glass / Bottle", category: "Wine & Beer" },
+  { name: "Terrasse de la Mer", price: "RWF 8 / 30", description: "Glass / Bottle", category: "Wine & Beer" },
+  { name: "Gris Gris", price: "RWF 9 / 34", description: "Glass / Bottle", category: "Wine & Beer" },
+  { name: "Uby N6 Rose", price: "RWF 8 / 32", description: "Glass / Bottle", category: "Wine & Beer" },
+  { name: "Uby N3", price: "RWF 7 / 30", description: "Glass / Bottle", category: "Wine & Beer" },
+  { name: "Uby Cuby 5L", price: "RWF 9", description: "Glass", category: "Wine & Beer" },
+  { name: "Champagne Charles Collin", price: "RWF 80", description: "Glass. Premium house reserve.", category: "Wine & Beer", image: "https://images.unsplash.com/photo-1590623275727-edfa7f013d39?auto=format&fit=crop&q=80&w=150&grayscale=true" },
+  { name: "Prosecco Gasparini", price: "RWF 40", description: "Glass", category: "Wine & Beer" },
+  { name: "Ch Lavillotte St Estephe", price: "RWF 13 / 50", description: "Glass / Bottle", category: "Wine & Beer" },
+  { name: "Macon Villages", price: "RWF 10 / 40", description: "Glass / Bottle", category: "Wine & Beer" },
+  { name: "Pouilly Fume", price: "RWF 13 / 55", description: "Glass / Bottle", category: "Wine & Beer" },
+  { name: "HEINEKEN", price: "RWF 3", description: "Premium lager.", category: "Wine & Beer" },
+  { name: "MUTZIG", price: "RWF 2", description: "Chilled bottle.", category: "Wine & Beer" },
+  { name: "PRIMUS", price: "RWF 2", description: "Chilled bottle.", category: "Wine & Beer" },
+  { name: "AMSTEL", price: "RWF 2", description: "Chilled bottle.", category: "Wine & Beer" },
+  { name: "DESPERADO", price: "RWF 4", description: "Tequila-flavored.", category: "Wine & Beer" },
+  { name: "VIRUNGA MIST", price: "RWF 3", description: "Refreshment.", category: "Wine & Beer" },
+  { name: "VIRUNGA GOLD", price: "RWF 3", description: "Local premium craft beer.", category: "Wine & Beer" },
+  { name: "VIRUNGA SILVER", price: "RWF 2", description: "Crisp and smooth reserve.", category: "Wine & Beer" },
+  { name: "SKOL LAGER", price: "RWF 2", description: "Local favorites.", category: "Wine & Beer" },
+  { name: "SKOL MALT", price: "RWF 2", description: "Local favorites.", category: "Wine & Beer" },
+  { name: "SKOL PANACHE", price: "RWF 2", description: "Local favorites.", category: "Wine & Beer" },
+
+  // LIQUOR & SPIRITS
+  { name: "TEQUILA OLMECA", price: "RWF 5 / 95", description: "Shot / Bottle", category: "Liquor & Spirits" },
+  { name: "TEQUILA GOLD AGAVITA", price: "RWF 5 / 90", description: "Shot / Bottle", category: "Liquor & Spirits" },
+  { name: "BELVEDERE PURE", price: "RWF 5 / 160", description: "Shot / Bottle", category: "Liquor & Spirits" },
+  { name: "ABSOLUT", price: "RWF 5 / 80", description: "Original. Shot / Bottle", category: "Liquor & Spirits" },
+  { name: "ABSOLUT FLAVORS", price: "RWF 5 / 84", description: "Mango, Lemon, Vanilla, Raspberry, Mandarin. Shot / Bottle", category: "Liquor & Spirits" },
+  { name: "CAPTAIN MORGAN SPICED GOLD", price: "RWF 5 / 85", description: "Shot / Bottle", category: "Liquor & Spirits" },
+  { name: "HAVANA", price: "RWF 5 / 75", description: "Shot / Bottle", category: "Liquor & Spirits" },
+  { name: "BACARDI CARTA ORO", price: "RWF 5 / 80", description: "Shot / Bottle", category: "Liquor & Spirits" },
+  { name: "BACARDI CARTA NEGRA", price: "RWF 5 / 80", description: "Shot / Bottle", category: "Liquor & Spirits" },
+  { name: "BOMBAY", price: "RWF 5 / 100", description: "Shot / Bottle", category: "Liquor & Spirits" },
+  { name: "GILBEYS", price: "RWF 5 / 30", description: "Shot / Bottle", category: "Liquor & Spirits" },
+  { name: "BEEFEATER", price: "RWF 5 / 70", description: "Shot / Bottle", category: "Liquor & Spirits" },
+  { name: "BEEFEATER PINK", price: "RWF 5 / 75", description: "Shot / Bottle", category: "Liquor & Spirits" },
+  { name: "GORDONS LONDON DRY", price: "RWF 5 / 70", description: "Shot / Bottle", category: "Liquor & Spirits" },
+  { name: "MARTELL VSOP", price: "RWF 230", description: "Bottle", category: "Liquor & Spirits" },
+  { name: "REMY MARTIN", price: "RWF 250", description: "Bottle", category: "Liquor & Spirits" },
+  { name: "HENESSY", price: "RWF 200", description: "Bottle", category: "Liquor & Spirits" },
+  { name: "JACK DANIELS FIRE / HONEY", price: "RWF 6 / 120", description: "Shot / Bottle", category: "Liquor & Spirits" },
+  { name: "JAMESON", price: "RWF 6 / 80", description: "Shot / Bottle", category: "Liquor & Spirits" },
+  { name: "JAMESON BLACK BARREL", price: "RWF 6 / 85", description: "Shot / Bottle", category: "Liquor & Spirits" },
+  { name: "J&B", price: "RWF 6 / 70", description: "Shot / Bottle", category: "Liquor & Spirits" },
+  { name: "RED LABEL", price: "RWF 6 / 85", description: "Shot / Bottle", category: "Liquor & Spirits" },
+  { name: "BALLANTINES", price: "RWF 6 / 75", description: "Shot / Bottle", category: "Liquor & Spirits" },
+  { name: "JAGERMEISTER", price: "RWF 5 / 95", description: "Shot / Bottle", category: "Liquor & Spirits" },
+
+  // SOFT DRINKS & SMOOTHIES
+  { name: "Tropical Bliss", price: "RWF 6", description: "Mango, pineapple, banana, milk. Optional: chai seeds or a splash of lime.", category: "Soft Drinks & Smoothies", image: "https://images.unsplash.com/photo-1553530666-ba11a7da3888?auto=format&fit=crop&q=80&w=150&grayscale=true" },
+  { name: "Berry Booster", price: "RWF 7", description: "Strawberries, banana, milk. Optional: a touch of honey or vanilla.", category: "Soft Drinks & Smoothies" },
+  { name: "Green Glow", price: "RWF 7", description: "Spinach, pineapple, green apple, cucumber, mint, water. Optional: ginger for a kick.", category: "Soft Drinks & Smoothies" },
+  { name: "Peanut Butter Banana Shake", price: "RWF 7", description: "Banana, peanut butter, milk. Optional: cocoa powder or a pinch of cinnamon.", category: "Soft Drinks & Smoothies" },
+  { name: "Classic Lemonade", price: "RWF 4", description: "Fresh lemons, sugar, water. Optional: lemon slices and mint.", category: "Soft Drinks & Smoothies", image: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&q=80&w=150&grayscale=true" },
+  { name: "Strawberry Lemonade", price: "RWF 6", description: "Fresh or blended strawberries, lemon juice, sugar, water. Garnish: strawberry slice & mint.", category: "Soft Drinks & Smoothies" },
+  { name: "Mint Ginger Lemonade", price: "RWF 6", description: "Lemon juice, fresh mint, ginger syrup or grated ginger, sugar, water. Refreshing and a bit spicy.", category: "Soft Drinks & Smoothies" },
+  { name: "Fresh Fruit Juice", price: "RWF 5", description: "Pineapple, mango or watermelon.", category: "Soft Drinks & Smoothies" },
+  { name: "FANTA", price: "RWF 2", description: "Orange / Citron / Pineapple / Sprite / Fiesta / Krest Tonic.", category: "Soft Drinks & Smoothies" },
+  { name: "COCA COLA", price: "RWF 2", description: "Classic or Zero.", category: "Soft Drinks & Smoothies" },
+  { name: "WATER", price: "RWF 1 - 2", description: "Sparkling (2) / Still (1)", category: "Soft Drinks & Smoothies" },
+  { name: "HENKEIN ZERO", price: "RWF 3", description: "Alcohol-free.", category: "Soft Drinks & Smoothies" },
+  { name: "SMIRNOFF GUARANA", price: "RWF 5", description: "Canned refreshment.", category: "Soft Drinks & Smoothies" },
+  { name: "SMIRNOFF ICE", price: "RWF 4", description: "Canned refreshment.", category: "Soft Drinks & Smoothies" },
+  { name: "RED BULL", price: "RWF 4", description: "Energy.", category: "Soft Drinks & Smoothies" },
+  { name: "SAVANNA", price: "RWF 5", description: "Cider.", category: "Soft Drinks & Smoothies" },
+
+  // COCKTAILS, SHOTS & MOCKTAILS
+  { name: "Baby Guinness (Shot)", price: "RWF 6", description: "Kahlúa & Amarula - Looks like a tiny stout, tastes like dessert.", category: "Cocktails, Shots & Mocktails" },
+  { name: "Kigali Breeze (Shot)", price: "RWF 6", description: "Whisky, peach juice, lemon juice, syrup, splash of soda.", category: "Cocktails, Shots & Mocktails" },
+  { name: "End of Days (Shot)", price: "RWF 6", description: "Vodka, tequila, Kahlúa - Sweet meets savage.", category: "Cocktails, Shots & Mocktails" },
+  { name: "Jäger Jet (Shot)", price: "RWF 8", description: "Jägermeister dropped into Redbull.", category: "Cocktails, Shots & Mocktails" },
+  { name: "Red, White & Booze (Shot)", price: "RWF 6", description: "Grenadine, blue curaçao, vodka - Sweet, smooth, and dangerously festive.", category: "Cocktails, Shots & Mocktails" },
+  { name: "Señorita Trouble", price: "RWF 10", description: "Tequila, continental lime juice - Salty, zesty.", category: "Cocktails, Shots & Mocktails", image: "https://images.unsplash.com/photo-1536935338788-846bb9981813?auto=format&fit=crop&q=80&w=150&grayscale=true" },
+  { name: "Wake Me Later", price: "RWF 9", description: "Vodka, Kahlúa, espresso - Silky, smooth, and dangerously energizing.", category: "Cocktails, Shots & Mocktails" },
+  { name: "Mint Condition", price: "RWF 8", description: "White rum, fresh mint, lime, soda - Crisp and cool with a kick.", category: "Cocktails, Shots & Mocktails" },
+  { name: "Electric Blue", price: "RWF 7", description: "Vodka, blue curaçao, lemon - Bright, citrusy, and Insta-worthy.", category: "Cocktails, Shots & Mocktails" },
+  { name: "The Italian Job", price: "RWF 10", description: "Campari, sweet white wine, soda - Bittersweet and stylish.", category: "Cocktails, Shots & Mocktails" },
+  { name: "Bob Marley Vibes", price: "RWF 9", description: "Grenadine, pineapple juice, Malibu, blue curaçao - Colorful, tropical, and chill.", category: "Cocktails, Shots & Mocktails" },
+  { name: "Tommy Boy", price: "RWF 8", description: "Gin, lemon, sugar, soda - Bubbly and refreshing.", category: "Cocktails, Shots & Mocktails" },
+  { name: "The Dry Whisper", price: "RWF 9", description: "Gin, dry white wine, olive or lemon twist - Smooth and sharp.", category: "Cocktails, Shots & Mocktails" },
+  { name: "Havana Night", price: "RWF 9", description: "Rum, coke, lime - Simple, classic, irresistible.", category: "Cocktails, Shots & Mocktails" },
+  { name: "Rising Sun", price: "RWF 9", description: "Tequila, orange juice, grenadine - Vibrant and sweet.", category: "Cocktails, Shots & Mocktails" },
+  { name: "G&T Katina's Style", price: "RWF 10", description: "Gin, tonic, cucumber or lime - Crisp and timeless.", category: "Cocktails, Shots & Mocktails" },
+  { name: "Lime Time", price: "RWF 10", description: "Rum, lime juice, sugar - Zesty and refreshing.", category: "Cocktails, Shots & Mocktails" },
+  { name: "Adios Darling", price: "RWF 12", description: "Vodka, gin, rum, tequila, blue curaçao - Strong, blue, and not for the faint.", category: "Cocktails, Shots & Mocktails", image: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&q=80&w=150&grayscale=true" },
+  { name: "The Godfather's Whisper", price: "RWF 8", description: "Whiskey, amaretto - Deep, rich, and smooth as silk.", category: "Cocktails, Shots & Mocktails" },
+  { name: "Long Nights", price: "RWF 12", description: "Vodka, gin, rum, tequila, continental splash of cola - The ultimate party starter.", category: "Cocktails, Shots & Mocktails" },
+  { name: "Nonno's Favorite", price: "RWF 8", description: "Whisky, coke - Simple, smooth, and refreshing.", category: "Cocktails, Shots & Mocktails" },
+  { name: "Spritz of the Day", price: "RWF 12", description: "Ask your waiter for more info on today's spritz.", category: "Cocktails, Shots & Mocktails" },
+  { name: "Tropical Sunrise (Mocktail)", price: "RWF 7", description: "Orange juice, pineapple juice, grenadine, ice.", category: "Cocktails, Shots & Mocktails" },
+  { name: "Minty Lime Cooler (Mocktail)", price: "RWF 8", description: "Lime juice, sugar syrup, soda water, mint leaves, ice.", category: "Cocktails, Shots & Mocktails" },
+  { name: "Mango Tango (Mocktail)", price: "RWF 8", description: "Mango juice, lime juice, grenadine, ice.", category: "Cocktails, Shots & Mocktails" },
+
+  // BREAKFAST, BRUNCH & SANDWICHES
+  { name: "Build-Your-Own Breakfast Bowl", price: "RWF 10", description: "Pick base, eggs, protein, toppings, cheese, and drizzle.", category: "Breakfast, Brunch & Sandwiches", image: "https://images.unsplash.com/photo-1494859802809-d069c3b71a8a?auto=format&fit=crop&q=80&w=150&grayscale=true" },
+  { name: "The Sunrise Wrap", price: "RWF 10", description: "Scrambled eggs, cheddar cheese, sautéed spinach, tomatoes, and mayonnaise.", category: "Breakfast, Brunch & Sandwiches" },
+  { name: "The Breakfast Glow", price: "RWF 8", description: "American burrito (tortilla, eggs, avocado, cheese).", category: "Breakfast, Brunch & Sandwiches" },
+  { name: "The Spicy Chicken Crunch", price: "RWF 11", description: "Spicy grilled chicken, lettuce, green peppers, carrots, and creamy garlic sauce.", category: "Breakfast, Brunch & Sandwiches" },
+  { name: "The Quesadilla", price: "RWF 9", description: "Tortilla, sweet potatoes, butternut, cheese Add beef / chicken / bacon (+3.0)", category: "Breakfast, Brunch & Sandwiches" },
+  { name: "Classic Club", price: "RWF 10", description: "Chicken, crispy bacon, tomato, lettuce, cheddar, and mayo.", category: "Breakfast, Brunch & Sandwiches", image: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&q=80&w=150&grayscale=true" },
+  { name: "Pesto Mozzarella Melt", price: "RWF 9", description: "Fresh mozzarella, basil pesto, tomato, and spinach.", category: "Breakfast, Brunch & Sandwiches" },
+  { name: "Tuna Crunch", price: "RWF 12", description: "Tuna salad, red onion, and tomatoes.", category: "Breakfast, Brunch & Sandwiches" },
+  { name: "Chicken Tramezzini", price: "RWF 10", description: "Chicken, tomatoes, cheese, sweet chilli sauce Add beef / chicken / bacon (+3.0)", category: "Breakfast, Brunch & Sandwiches" },
+  { name: "Build Your Own Burger", price: "RWF 10", description: "Served with fries. Choose Your Bun, Patty, Cheese, Sauce, Toppings.", category: "Breakfast, Brunch & Sandwiches" },
+
+  // BRUNCH
+  { name: "Avocado Toast with Poached Egg", price: "RWF 10", description: "Morning classic.", category: "Brunch" },
+  { name: "Fluffy Pancakes", price: "RWF 9", description: "Banana or plain + syrup.", category: "Brunch" },
+  { name: "Chicken and Waffles", price: "RWF 12", description: "Sweet and savory.", category: "Brunch" },
+  { name: "Benedict Eggs on Potato Fritters", price: "RWF 10", description: "Perfectly poached eggs.", category: "Brunch" },
+  { name: "French Toast with Scrambled Eggs", price: "RWF 10", description: "A delightful combination.", category: "Brunch" },
+  { name: "Peanut Butter Oatmeal", price: "RWF 10", description: "Hearty and healthy.", category: "Brunch" },
+  { name: "Fruit Bowl with Yogurt and Granola", price: "RWF 9", description: "Fresh and light.", category: "Brunch" },
+
+  // SALADS & BOWLS
+  { name: "Katina's Power Bowl", price: "RWF 11", description: "Quinoa, black beans, avocado, potatoes and lemon vinaigrette. Served with flat bread.", category: "Salads & Bowls" },
+  { name: "Zesty Greek Salad", price: "RWF 10", description: "Cucumbers, olives, feta, tomatoes, oregano dressing. Served with flat bread.", category: "Salads & Bowls" },
+  { name: "Chicken Cesar Salad", price: "RWF 12", description: "Chicken, lettuce, egg, croutons, tomatoes, pecorino, cesar sauce. Served with flat bread.", category: "Salads & Bowls" },
+
+  // MAINS
+  { name: "Classic Beef Stew", price: "RWF 14", description: "Beef stew with side of your choice.", category: "Mains" },
+  { name: "Grilled Chicken Plate", price: "RWF 15", description: "Grilled chicken with 2 sides of your choice.", category: "Mains" },
+  { name: "Pasta of the Day", price: "RWF 13", description: "Ask our team for today's special.", category: "Mains" },
+
+  // KATINA'S TAPAS SELECTION
+  { name: "Mini Skewers", price: "RWF 12", description: "Potatoes slices, marinated beef and chicken, served warm on a skewer.", category: "Katina's Tapas Selection" },
+  { name: "Spiced Chicken Bites", price: "RWF 10", description: "Fried marinated chicken cubes with a smoky paprika rub, served with garlic-yogurt sauce.", category: "Katina's Tapas Selection" },
+  { name: "Jojo's Potatoes", price: "RWF 6", description: "Fried potatoes with spicy sauce.", category: "Katina's Tapas Selection" },
+  { name: "Ham & Cheese Croquettes", price: "RWF 12", description: "Golden, crispy croquettes filled with cheese and ham, served with garlic mayo.", category: "Katina's Tapas Selection" },
+  { name: "Creamy Cheese Garlic Bread", price: "RWF 8", description: "Garlic, cheese, and bread.", category: "Katina's Tapas Selection" },
+
+  // FOOD, TAPAS & SIDES
+  { name: "Fries", price: "RWF 3", description: "Crispy classic fries.", category: "Food, Tapas & Sides" },
+  { name: "Cooked Vegetables", price: "RWF 3", description: "Healthy side option.", category: "Food, Tapas & Sides" },
+  { name: "Cheese Fries", price: "RWF 5", description: "Fries loaded with cheese.", category: "Food, Tapas & Sides" },
+  { name: "Mashed Potatoes", price: "RWF 3", description: "Creamy and smooth.", category: "Food, Tapas & Sides" },
+  { name: "Salad", price: "RWF 3", description: "Simple side salad.", category: "Food, Tapas & Sides" },
+  { name: "Banana Bread", price: "RWF 4", description: "Freshly baked sweet treat.", category: "Food, Tapas & Sides" },
+  { name: "Chocolate Muffins", price: "RWF 2", description: "Rich and chocolatey.", category: "Food, Tapas & Sides" },
+  { name: "Oat Cookies", price: "RWF 3", description: "Crunchy and satisfying.", category: "Food, Tapas & Sides" },
+  { name: "Brownies", price: "RWF 4", description: "Fudgy and decadent.", category: "Food, Tapas & Sides" }
+];
+
+export const TESTIMONIALS = [
+  { name: "Julian Thorne", text: "The most inviting cafe experience in the city. The cold brew is literally a work of art.", role: "Coffee Connoisseur" },
+  { name: "Elena Rossi", text: "Atmosphere is everything, and Katina's Kafé masters it. The lighting, the quiet chatter, the service—flawless.", role: "Regular Guest" },
+];

@@ -1,0 +1,189 @@
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { Search } from 'lucide-react';
+import { FULL_MENU_ITEMS } from './data';
+
+export default function MenuPage() {
+  const categories = [
+    'Coffee & Tea', 
+    'Soft Drinks & Smoothies', 
+    'Breakfast, Brunch & Sandwiches', 
+    'Brunch',
+    'Food, Tapas & Sides', 
+    'Katina\'s Tapas Selection',
+    'Mains',
+    'Salads & Bowls',
+    'Cocktails, Shots & Mocktails',
+    'Wine & Beer',
+    'Liquor & Spirits'
+  ];
+  
+  const filterGroups = [
+    { label: 'All', categories },
+    { label: 'Coffee & Drinks', categories: ['Coffee & Tea', 'Soft Drinks & Smoothies'] },
+    { label: 'Food & Dining', categories: ['Breakfast, Brunch & Sandwiches', 'Brunch', 'Food, Tapas & Sides', 'Katina\'s Tapas Selection', 'Mains', 'Salads & Bowls'] },
+    { label: 'Bar & Spirits', categories: ['Cocktails, Shots & Mocktails', 'Wine & Beer', 'Liquor & Spirits'] }
+  ];
+
+  const [activeFilter, setActiveFilter] = useState<string>('All');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
+
+  const displayedCategories = filterGroups.find(g => g.label === activeFilter)?.categories || categories;
+
+  const suggestions = searchQuery.trim() === '' ? [] : FULL_MENU_ITEMS.filter(item => 
+    item.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+    item.description.toLowerCase().includes(searchQuery.toLowerCase())
+  ).slice(0, 5);
+
+  return (
+    <div className="bg-black text-zinc-100 font-sans pb-32 min-h-screen">
+      {/* Hero Menu Banner */}
+      <section className="relative h-[25rem] min-h-[400px] flex justify-center items-center overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=2000" 
+            alt="Menu background" 
+            className="w-full h-full object-cover opacity-50 grayscale-[0.8]"
+            referrerPolicy="no-referrer"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/60 to-black" />
+        </div>
+        <div className="relative z-10 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+          >
+            <p className="text-zinc-400 uppercase tracking-[0.4em] text-xs mb-4">Delicious & Amazing</p>
+            <div className="flex items-center justify-center gap-4 mb-4">
+              <div className="w-12 h-px bg-zinc-600"></div>
+              <div className="w-2 h-2 rotate-45 border border-zinc-500"></div>
+              <div className="w-12 h-px bg-zinc-600"></div>
+            </div>
+            <h1 className="text-5xl md:text-7xl font-light tracking-tight text-white">Our Menu</h1>
+          </motion.div>
+        </div>
+      </section>
+
+      <div className="max-w-6xl mx-auto px-6 mt-12 md:mt-16">
+        <div className="max-w-md mx-auto mb-10 relative">
+          <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+            <Search className="h-4 w-4 text-zinc-500" />
+          </div>
+          <input
+            type="text"
+            className="block w-full pl-12 pr-4 py-4 border border-zinc-800 bg-zinc-900/50 text-white rounded-none focus:outline-none focus:border-zinc-500 placeholder-zinc-600 transition-colors sm:text-sm uppercase tracking-wider text-[11px]"
+            placeholder="Search menu items..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onFocus={() => setIsSearchFocused(true)}
+            onBlur={() => setIsSearchFocused(false)}
+          />
+          
+          <AnimatePresence>
+            {isSearchFocused && searchQuery.trim() !== '' && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="absolute z-50 w-full mt-2 bg-zinc-950 border border-zinc-800 shadow-2xl overflow-y-auto max-h-[300px]"
+              >
+                {suggestions.length > 0 ? (
+                  suggestions.map((item, idx) => (
+                    <div 
+                      key={idx}
+                      className="px-4 py-4 hover:bg-zinc-800/50 cursor-pointer border-b border-zinc-900 last:border-0 transition-colors"
+                      onMouseDown={(e) => {
+                        e.preventDefault(); // Prevent input blur
+                        setSearchQuery(item.name);
+                        setIsSearchFocused(false);
+                      }}
+                    >
+                      <div className="flex justify-between items-baseline mb-1 gap-4">
+                        <h4 className="text-zinc-200 text-sm font-light tracking-wide truncate">{item.name}</h4>
+                        <span className="text-zinc-500 text-[10px] font-mono shrink-0">{item.price}</span>
+                      </div>
+                      <p className="text-zinc-500 text-xs font-light truncate">{item.description}</p>
+                    </div>
+                  ))
+                ) : (
+                  <div className="px-4 py-6 text-center text-zinc-500 text-[10px] uppercase tracking-widest">
+                    No items found
+                  </div>
+                )}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+
+        <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 mb-24">
+          {filterGroups.map((group) => (
+            <button
+              key={group.label}
+              onClick={() => setActiveFilter(group.label)}
+              className={`text-[10px] md:text-xs uppercase tracking-widest px-5 py-2.5 border transition-all duration-300 ${
+                activeFilter === group.label
+                  ? 'bg-zinc-100 text-black border-zinc-100'
+                  : 'border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-500'
+              }`}
+            >
+              {group.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-8 md:px-16 space-y-32">
+        {displayedCategories.map((category, catIdx) => {
+          const items = FULL_MENU_ITEMS.filter(item => {
+            const matchesCategory = item.category === category;
+            const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                                  item.description.toLowerCase().includes(searchQuery.toLowerCase());
+            return matchesCategory && matchesSearch;
+          });
+          if (items.length === 0) return null;
+
+          return (
+            <section key={category} className="relative">
+              <div className="text-center mb-16 sticky top-[60px] z-40 bg-black/95 backdrop-blur-sm pt-6 pb-6 border-b border-zinc-900 md:border-none shadow-2xl md:shadow-none -mx-6 px-6 md:mx-0 md:px-0">
+                <p className="text-zinc-500 uppercase tracking-[0.3em] text-[10px] mb-4">Starter Menu</p>
+                <div className="flex items-center justify-center gap-4 mb-4">
+                  <div className="w-8 h-px bg-zinc-800"></div>
+                  <div className="w-1.5 h-1.5 rotate-45 border border-zinc-600 bg-zinc-900"></div>
+                  <div className="w-8 h-px bg-zinc-800"></div>
+                </div>
+                <h2 className="text-4xl font-light tracking-wide text-white">{category}</h2>
+              </div>
+
+              <div className="relative grid md:grid-cols-2 gap-y-12 gap-x-20">
+                {/* Vertical line divider for desktop */}
+                <div className="hidden md:block absolute top-0 bottom-0 left-1/2 w-px bg-gradient-to-b from-transparent via-zinc-800 to-transparent transform -translate-x-1/2"></div>
+                
+                {items.map((item, idx) => (
+                  <motion.div 
+                    key={item.name}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ delay: (idx % 4) * 0.1 }}
+                    className="group cursor-pointer"
+                  >
+                    <div className="flex justify-between items-end mb-2 w-full gap-2 md:gap-4">
+                      <h3 className="text-lg md:text-xl font-light tracking-wide text-zinc-200 group-hover:text-white transition-colors">{item.name}</h3>
+                      <div className="flex-grow border-b border-zinc-700 border-dotted mb-1.5 opacity-40 group-hover:opacity-100 transition-opacity" />
+                      <span className="text-zinc-400 font-mono text-sm shrink-0 whitespace-nowrap">{item.price}</span>
+                    </div>
+                    <p className="text-zinc-500 text-sm font-light leading-relaxed">
+                      {item.description}
+                    </p>
+                  </motion.div>
+                ))}
+              </div>
+            </section>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
