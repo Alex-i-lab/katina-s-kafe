@@ -219,7 +219,11 @@ function Home({ openModal }: { openModal: () => void }) {
       <section id="gallery" className="py-24 md:py-40 px-8 md:px-16 bg-black relative">
         <div className="max-w-7xl mx-auto">
           <div className="mb-24 flex flex-col items-center text-center">
-            <div className="bg-zinc-800 h-20 w-[1px] mb-8" />
+            <div className="flex items-center gap-4 mb-8 w-full max-w-sm">
+              <div className="h-px bg-zinc-800 flex-1"></div>
+              <div className="w-1.5 h-1.5 rotate-45 border border-zinc-700 bg-zinc-900"></div>
+              <div className="h-px bg-zinc-800 flex-1"></div>
+            </div>
             <SectionHeading subtitle="Ambiance">The Visuals</SectionHeading>
           </div>
           
@@ -240,9 +244,9 @@ function Home({ openModal }: { openModal: () => void }) {
             </div>
             
             <div className="col-span-4 md:col-span-8 xl:col-span-12 h-64 md:h-80 relative group overflow-hidden mt-8">
-               <img src="https://images.unsplash.com/photo-1509365465994-3e21ba3e18a0?auto=format&fit=crop&q=80&w=2000" alt="Aroma of fresh coffee" className="w-full h-full object-cover grayscale-[0.6] opacity-50 contrast-125" referrerPolicy="no-referrer" />
+               <img src="https://images.unsplash.com/photo-1453614512568-c4024d13c247?auto=format&fit=crop&q=80&w=2000" alt="Aroma of fresh coffee" className="w-full h-full object-cover grayscale-[0.7] opacity-30 contrast-150 transition-all duration-1000 group-hover:scale-105" referrerPolicy="no-referrer" />
                <div className="absolute inset-0 flex items-center justify-center">
-                 <h3 className="text-4xl md:text-6xl lg:text-8xl font-light text-white/10 uppercase tracking-[0.5em] select-none italic">Atmospheric</h3>
+                 <h3 className="text-4xl md:text-6xl lg:text-8xl font-light text-white/20 uppercase tracking-[0.5em] select-none italic transition-colors group-hover:text-white/30">Atmospheric</h3>
                </div>
             </div>
           </div>
