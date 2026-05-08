@@ -49,19 +49,14 @@ export default function MenuPage() {
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/60 to-black" />
         </div>
-        <div className="relative z-10 text-center">
+        <div className="relative z-10 text-center max-w-4xl px-8">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
           >
-            <p className="text-zinc-400 uppercase tracking-[0.4em] text-xs mb-4">Delicious & Amazing</p>
-            <div className="flex items-center justify-center gap-4 mb-4">
-              <div className="w-12 h-px bg-zinc-600"></div>
-              <div className="w-2 h-2 rotate-45 border border-zinc-500"></div>
-              <div className="w-12 h-px bg-zinc-600"></div>
-            </div>
-            <h1 className="text-5xl md:text-7xl font-light tracking-tight text-white">Our Menu</h1>
+            <p className="text-zinc-500 uppercase tracking-[0.5em] text-[11px] mb-8">Culinary Experience</p>
+            <h1 className="text-6xl md:text-8xl lg:text-9xl font-light tracking-tighter text-white mb-12">Fine Dining.</h1>
           </motion.div>
         </div>
       </section>
@@ -147,16 +142,11 @@ export default function MenuPage() {
           return (
             <section key={category} className="relative">
               <div className="text-center mb-16 sticky top-[60px] z-40 bg-black/95 backdrop-blur-sm pt-6 pb-6 border-b border-zinc-900 md:border-none shadow-2xl md:shadow-none -mx-6 px-6 md:mx-0 md:px-0">
-                <p className="text-zinc-500 uppercase tracking-[0.3em] text-[10px] mb-4">Starter Menu</p>
-                <div className="flex items-center justify-center gap-4 mb-4">
-                  <div className="w-8 h-px bg-zinc-800"></div>
-                  <div className="w-1.5 h-1.5 rotate-45 border border-zinc-600 bg-zinc-900"></div>
-                  <div className="w-8 h-px bg-zinc-800"></div>
-                </div>
-                <h2 className="text-4xl font-light tracking-wide text-white">{category}</h2>
+                <p className="text-zinc-500 uppercase tracking-[0.4em] text-[11px] mb-6">Selection</p>
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-tight text-white leading-tight">{category}</h2>
               </div>
 
-              <div className="relative grid md:grid-cols-2 gap-y-12 gap-x-20">
+              <div className="relative grid md:grid-cols-2 gap-y-16 gap-x-24">
                 {/* Vertical line divider for desktop */}
                 <div className="hidden md:block absolute top-0 bottom-0 left-1/2 w-px bg-gradient-to-b from-transparent via-zinc-800 to-transparent transform -translate-x-1/2"></div>
                 

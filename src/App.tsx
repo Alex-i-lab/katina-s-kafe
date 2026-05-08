@@ -27,9 +27,9 @@ import OrderPage from './OrderPage';
 import { MapView } from './MapComponent';
 
 const SectionHeading = ({ children, subtitle }: { children: React.ReactNode, subtitle?: string }) => (
-  <div className="mb-12">
-    {subtitle && <p className="text-zinc-500 uppercase tracking-[0.3em] text-xs mb-2">{subtitle}</p>}
-    <h2 className="text-4xl md:text-5xl font-light tracking-tight text-white">{children}</h2>
+  <div className="mb-16">
+    {subtitle && <p className="text-zinc-600 uppercase tracking-[0.4em] text-[11px] mb-4">{subtitle}</p>}
+    <h2 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-tight text-white leading-tight">{children}</h2>
   </div>
 );
 
@@ -63,20 +63,20 @@ function Home({ openModal }: { openModal: () => void }) {
           <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black" />
         </motion.div>
 
-        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
+        <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: "easeOut" }}
           >
-            <p className="text-zinc-400 uppercase tracking-[0.4em] text-sm mb-6">Your Daily Ritual</p>
-            <h1 className="text-6xl md:text-8xl lg:text-9xl font-light tracking-tighter mb-8 leading-none">
-              Katina's <span className="italic text-zinc-500 font-extralight block md:inline">Kafé</span>
+            <p className="text-zinc-500 uppercase tracking-[0.4em] text-[11px] mb-8">Your Daily Ritual</p>
+            <h1 className="text-6xl md:text-8xl lg:text-[10rem] font-light tracking-tighter mb-12 leading-[0.9]">
+              Katina's <span className="italic text-zinc-300 font-extralight block md:inline opacity-90">Kafé</span>
             </h1>
-            <p className="text-zinc-400 text-lg md:text-xl font-light max-w-2xl mx-auto mb-10 leading-relaxed">
-              A cozy café in Kigali serving expertly roasted coffee and fresh artisan pastries. The perfect setting to connect, relax, and recharge.
+            <p className="text-zinc-400 text-base md:text-lg font-light max-w-lg mx-auto mb-16 leading-relaxed opacity-80">
+              From morning coffee to evening cocktails — a space designed for connection and atmosphere.
             </p>
-            <div className="flex flex-col md:flex-row items-center justify-center gap-4">
+            <div className="flex flex-col md:flex-row items-center justify-center gap-6">
               <Link 
                 id="cta_hero_primary"
                 to="/order"
@@ -96,11 +96,8 @@ function Home({ openModal }: { openModal: () => void }) {
         </div>
 
 
-      </section>
-
-      {/* About Section */}
-      <section id="about" className="py-24 md:py-32 px-8 md:px-16">
-        <div className="max-w-7xl mx-auto grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12 gap-4 md:gap-6 xl:gap-8 items-center">
+      </section>      <section id="about" className="py-24 md:py-40 px-8 md:px-16 bg-zinc-950/30">
+        <div className="max-w-7xl mx-auto grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12 gap-8 md:gap-12 xl:gap-20 items-center">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -109,47 +106,46 @@ function Home({ openModal }: { openModal: () => void }) {
             className="col-span-4 md:col-span-8 xl:col-span-6"
           >
             <SectionHeading subtitle="Our Story">A Space for Connection</SectionHeading>
-            <div className="space-y-6 text-zinc-400 text-lg font-light leading-relaxed">
+            <div className="space-y-8 text-zinc-400 text-base md:text-lg font-light leading-relaxed">
               <p>
-                <span className="text-white">Katina’s Kafé</span> is a cozy café in Kigali with a strong social mission. Known for its welcoming atmosphere, good coffee, and community events, the café also empowers the deaf community by employing deaf baristas and promoting inclusion through sign language.
+                <span className="text-white font-normal uppercase tracking-widest text-sm">Katina’s Kafé</span> is a cozy sanctuary in Kigali with a profound social heartbeat. Renowned for its warm hospitality, exquisite coffee, and vibrant community spirit, we pride ourselves on more than just the perfect pour.
               </p>
               <p>
-                It’s more than just a coffee spot — it’s a space for connection, awareness, and impact.
+                Our mission is rooted in empowerment; we are honored to employ deaf baristas and champion inclusivity through the beautiful language of signs. We invitation you into a space where every cup tells a story of awareness, impact, and genuine human connection.
               </p>
             </div>
           </motion.div>
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.98 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="col-span-4 md:col-span-8 xl:col-span-6 xl:col-start-7 aspect-[4/3] relative"
+            transition={{ duration: 1 }}
+            className="col-span-4 md:col-span-8 xl:col-span-6 xl:col-start-7 aspect-[4/5] relative overflow-hidden"
           >
             <img 
               src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&q=80&w=1200" 
               alt="Warm cafe seating" 
-              className="w-full h-full object-cover rounded-sm grayscale-[0.3]"
+              className="w-full h-full object-cover grayscale-[0.5] hover:grayscale-0 transition-all duration-1000"
               referrerPolicy="no-referrer"
             />
-
           </motion.div>
         </div>
       </section>
 
       {/* Menu Section Highlights */}
-      <section id="menu" className="py-24 md:py-32 bg-zinc-950 border-y border-zinc-900 px-8 md:px-16">
+      <section id="menu" className="py-24 md:py-40 bg-zinc-950 px-8 md:px-16">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <p className="text-zinc-500 uppercase tracking-[0.3em] text-[10px] mb-4">Curated Taste</p>
-            <div className="flex items-center justify-center gap-4 mb-4">
-              <div className="w-8 h-px bg-zinc-800"></div>
-              <div className="w-1.5 h-1.5 rotate-45 border border-zinc-600 bg-zinc-900"></div>
-              <div className="w-8 h-px bg-zinc-800"></div>
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
+            <div className="max-w-xl">
+              <p className="text-zinc-500 uppercase tracking-[0.4em] text-[11px] mb-4">Curated Taste</p>
+              <h2 className="text-4xl md:text-5xl lg:text-7xl font-light tracking-tight text-white leading-tight">Mastering the Art of Selection.</h2>
             </div>
-            <h2 className="text-4xl font-light tracking-wide text-white">Selection</h2>
+            <Link to="/menu" className="text-[11px] uppercase tracking-[0.3em] text-zinc-400 hover:text-white pb-2 border-b border-zinc-800 hover:border-white transition-all whitespace-nowrap">
+              Explore Full Menu
+            </Link>
           </div>
 
-          <div className="grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12 gap-4 md:gap-6 xl:gap-8 mt-8">
+          <div className="grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12 gap-8 md:gap-10 mt-8">
             {[
               { 
                 name: 'Coffee & Tea', 
@@ -216,47 +212,38 @@ function Home({ openModal }: { openModal: () => void }) {
               </motion.div>
             ))}
           </div>
-
-          <div className="mt-16 text-center relative z-10">
-            <Link to="/menu" className="text-xs uppercase tracking-[0.3em] text-zinc-500 hover:text-white px-8 py-4 border border-zinc-800 hover:border-white transition-all inline-block bg-zinc-950">
-              Explore Full Menu
-            </Link>
-          </div>
         </div>
       </section>
 
       {/* Ambiance Gallery */}
-      <section id="gallery" className="py-24 md:py-32 px-8 md:px-16">
+      <section id="gallery" className="py-24 md:py-40 px-8 md:px-16 bg-black relative">
         <div className="max-w-7xl mx-auto">
-          <SectionHeading subtitle="Ambiance">The Visuals</SectionHeading>
+          <div className="mb-24 flex flex-col items-center text-center">
+            <div className="bg-zinc-800 h-20 w-[1px] mb-8" />
+            <SectionHeading subtitle="Ambiance">The Visuals</SectionHeading>
+          </div>
           
-          <div className="grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12 gap-4 md:gap-6 xl:gap-8 auto-rows-[300px]">
-            <div className="col-span-4 md:col-span-4 xl:col-span-6 row-span-2 relative group overflow-hidden cursor-pointer">
-              <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&q=80&w=1200" alt="Espresso machine" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale-[0.2]" referrerPolicy="no-referrer" />
-              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
-                <span className="text-xs uppercase tracking-[0.2em] border border-white px-4 py-2 text-white">View Larger</span>
+          <div className="grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12 gap-10 md:gap-12 auto-rows-[350px]">
+            <div className="col-span-4 md:col-span-8 xl:col-span-8 row-span-2 relative group overflow-hidden bg-zinc-900 shadow-2xl">
+              <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&q=80&w=1200" alt="Espresso machine" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 grayscale-[0.4] group-hover:grayscale-0" referrerPolicy="no-referrer" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-12">
+                <p className="text-white text-xs uppercase tracking-widest font-light">Craftsmanship in Every Shot</p>
               </div>
             </div>
             
-            <div className="col-span-4 md:col-span-4 xl:col-span-6 relative group overflow-hidden cursor-pointer">
-              <img src="https://images.unsplash.com/photo-1498804103079-a6351b050096?auto=format&fit=crop&q=80&w=1200" alt="Latte art pouring" className="w-full h-full object-cover grayscale-[0.2] transition-transform duration-700 group-hover:scale-110" referrerPolicy="no-referrer" />
-              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
-                <span className="text-xs uppercase tracking-[0.2em] border border-white px-4 py-2 text-white">View Larger</span>
-              </div>
+            <div className="col-span-4 md:col-span-4 xl:col-span-4 relative group overflow-hidden bg-zinc-900">
+              <img src="https://images.unsplash.com/photo-1498804103079-a6351b050096?auto=format&fit=crop&q=80&w=1200" alt="Latte art pouring" className="w-full h-full object-cover grayscale-[0.5] transition-transform duration-1000 group-hover:scale-105 group-hover:grayscale-0" referrerPolicy="no-referrer" />
             </div>
-
-            <div className="col-span-2 md:col-span-2 xl:col-span-3 relative group overflow-hidden cursor-pointer">
-              <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&q=80&w=1200" alt="Coffee shop seating" className="w-full h-full object-cover grayscale-[0.2] transition-transform duration-700 group-hover:scale-110" referrerPolicy="no-referrer" />
-              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
-                <span className="text-xs uppercase tracking-[0.2em] border border-white px-4 py-2 text-white">View Larger</span>
-              </div>
+ 
+            <div className="col-span-4 md:col-span-4 xl:col-span-4 relative group overflow-hidden bg-zinc-900">
+              <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&q=80&w=1200" alt="Coffee shop seating" className="w-full h-full object-cover grayscale-[0.5] transition-transform duration-1000 group-hover:scale-105 group-hover:grayscale-0" referrerPolicy="no-referrer" />
             </div>
-
-            <div className="col-span-2 md:col-span-2 xl:col-span-3 relative group overflow-hidden cursor-pointer">
-              <img src="https://images.unsplash.com/photo-1509365465994-3e21ba3e18a0?auto=format&fit=crop&q=80&w=1200" alt="Fresh pastries" className="w-full h-full object-cover grayscale-[0.2] transition-transform duration-700 group-hover:scale-110" referrerPolicy="no-referrer" />
-              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
-                <span className="text-xs uppercase tracking-[0.2em] border border-white px-4 py-2 text-white">View Larger</span>
-              </div>
+            
+            <div className="col-span-4 md:col-span-8 xl:col-span-12 h-64 md:h-80 relative group overflow-hidden mt-8">
+               <img src="https://images.unsplash.com/photo-1509365465994-3e21ba3e18a0?auto=format&fit=crop&q=80&w=2000" alt="Aroma of fresh coffee" className="w-full h-full object-cover grayscale-[0.6] opacity-50 contrast-125" referrerPolicy="no-referrer" />
+               <div className="absolute inset-0 flex items-center justify-center">
+                 <h3 className="text-4xl md:text-6xl lg:text-8xl font-light text-white/10 uppercase tracking-[0.5em] select-none italic">Atmospheric</h3>
+               </div>
             </div>
           </div>
         </div>
@@ -268,19 +255,19 @@ function Home({ openModal }: { openModal: () => void }) {
           <Star className="w-8 h-8 text-white mx-auto mb-10 opacity-30" />
           <div className="relative">
             <p className="text-2xl md:text-3xl font-light italic text-white leading-relaxed mb-8">
-              “An absolute masterclass in atmosphere and specialty coffee.”
+              “The best memories are made around the table.”
             </p>
             <div className="flex flex-col items-center">
-              <span className="text-zinc-500 text-xs uppercase tracking-widest">— Culinary Review</span>
+              <span className="text-zinc-500 text-xs uppercase tracking-widest">— Katina's Kafé</span>
             </div>
           </div>
         </div>
       </section>
 
       {/* Feedback Section */}
-      <section id="feedback" className="py-24 md:py-32 px-8 md:px-16 border-t border-zinc-900 bg-black">
+      <section id="feedback" className="py-24 md:py-40 px-8 md:px-16 border-t border-zinc-900 bg-black">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12 gap-4 md:gap-6 xl:gap-8 lg:gap-16">
+          <div className="grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12 gap-12 md:gap-16 lg:gap-24">
             <motion.div 
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -288,17 +275,17 @@ function Home({ openModal }: { openModal: () => void }) {
               transition={{ duration: 0.8 }}
               className="col-span-4 md:col-span-8 xl:col-span-5"
             >
-              <p className="text-zinc-500 uppercase tracking-widest text-[10px] mb-4">Feedback</p>
-              <h2 className="text-4xl font-light text-white mb-6 tracking-tight">Share Your Experience</h2>
-              <p className="text-zinc-400 font-light leading-relaxed mb-8">
+              <p className="text-zinc-500 uppercase tracking-widest text-[11px] mb-4">Feedback</p>
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-light text-white mb-8 tracking-tight leading-tight">Share Your Experience</h2>
+              <p className="text-zinc-400 font-light leading-relaxed text-base md:text-lg mb-12">
                 Your thoughts matter to us. Whether you had a wonderful dinner or have suggestions on how we can improve, we'd love to hear it.
               </p>
-              <div className="flex items-center gap-4 text-zinc-500 text-xs uppercase tracking-widest">
+              <div className="flex items-center gap-4 text-zinc-600 text-xs uppercase tracking-widest">
                 <MessageSquare className="w-4 h-4" />
                 <span>Private & Confidential</span>
               </div>
             </motion.div>
-
+ 
             <motion.div 
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -308,49 +295,49 @@ function Home({ openModal }: { openModal: () => void }) {
             >
               {submitted ? (
                 <motion.div 
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="bg-zinc-900/50 border border-zinc-800 p-12 text-center rounded-lg"
+                   initial={{ opacity: 0, scale: 0.98 }}
+                   animate={{ opacity: 1, scale: 1 }}
+                   className="bg-zinc-900/40 border border-zinc-800/50 p-12 lg:p-20 text-center rounded-sm"
                 >
-                  <div className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center mx-auto mb-6">
-                    <Send className="w-6 h-6 text-white" />
+                  <div className="w-20 h-20 rounded-full bg-white/5 flex items-center justify-center mx-auto mb-8">
+                    <Send className="w-8 h-8 text-white/50" />
                   </div>
-                  <h3 className="text-2xl font-light text-white mb-4">Thank You!</h3>
-                  <p className="text-zinc-400 font-light max-w-sm mx-auto">
-                    Your feedback has been received. We appreciate you taking the time to share your review with us.
+                  <h3 className="text-3xl font-light text-white mb-6">Deeply Appreciated.</h3>
+                  <p className="text-zinc-400 font-light max-w-sm mx-auto leading-relaxed">
+                    Your feedback is invaluable. We take every review into heart as we strive for perfection.
                   </p>
                   <button 
                     onClick={() => setSubmitted(false)}
-                    className="mt-8 text-[10px] uppercase tracking-widest text-zinc-500 hover:text-white underline underline-offset-4 transition-colors"
+                    className="mt-12 text-[11px] uppercase tracking-widest text-zinc-500 hover:text-white underline underline-offset-8 transition-colors"
                   >
                     Send another review
                   </button>
                 </motion.div>
               ) : (
-                <form className="space-y-8" onSubmit={handleSubmit}>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <form className="space-y-12" onSubmit={handleSubmit}>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                     <div className="space-y-4">
-                      <label className="text-[10px] uppercase tracking-widest text-zinc-500">Name</label>
+                      <label className="text-[11px] uppercase tracking-[0.2em] text-zinc-500">Name</label>
                       <input 
                         required
                         type="text" 
-                        className="w-full bg-transparent border-b border-zinc-800 py-4 text-white focus:outline-none focus:border-white transition-colors font-light"
+                        className="w-full bg-transparent border-b border-zinc-800/60 pb-4 text-white focus:outline-none focus:border-white/40 transition-colors font-light text-lg"
                         placeholder="Your name"
                       />
                     </div>
                     <div className="space-y-4">
-                      <label className="text-[10px] uppercase tracking-widest text-zinc-500">Email (Optional)</label>
+                      <label className="text-[11px] uppercase tracking-[0.2em] text-zinc-500">Email (Optional)</label>
                       <input 
                         type="email" 
-                        className="w-full bg-transparent border-b border-zinc-800 py-4 text-white focus:outline-none focus:border-white transition-colors font-light"
+                        className="w-full bg-transparent border-b border-zinc-800/60 pb-4 text-white focus:outline-none focus:border-white/40 transition-colors font-light text-lg"
                         placeholder="your@email.com"
                       />
                     </div>
                   </div>
-
-                  <div className="space-y-4">
-                    <label className="text-[10px] uppercase tracking-widest text-zinc-500 block">Overall Rating</label>
-                    <div className="flex gap-2">
+ 
+                  <div className="space-y-6">
+                    <label className="text-[11px] uppercase tracking-[0.2em] text-zinc-500 block">Overall Rating</label>
+                    <div className="flex gap-4">
                       {[1, 2, 3, 4, 5].map((star) => (
                         <button
                           key={star}
@@ -358,10 +345,10 @@ function Home({ openModal }: { openModal: () => void }) {
                           onMouseEnter={() => setHoveredRating(star)}
                           onMouseLeave={() => setHoveredRating(0)}
                           onClick={() => setRating(star)}
-                          className="focus:outline-none transition-transform active:scale-95"
+                          className="focus:outline-none transition-transform hover:scale-110 active:scale-95"
                         >
                           <Star 
-                            className={`w-6 h-6 transition-colors ${
+                            className={`w-8 h-8 transition-all duration-300 ${
                               star <= (hoveredRating || rating) 
                                 ? 'fill-white text-white' 
                                 : 'text-zinc-800'
@@ -371,33 +358,32 @@ function Home({ openModal }: { openModal: () => void }) {
                       ))}
                     </div>
                   </div>
-
+ 
                   <div className="space-y-4">
-                    <label className="text-[10px] uppercase tracking-widest text-zinc-500">Your Experience</label>
+                    <label className="text-[11px] uppercase tracking-[0.2em] text-zinc-500">Your Experience</label>
                     <textarea 
                       required
                       rows={4}
-                      className="w-full bg-transparent border-b border-zinc-800 py-4 text-white focus:outline-none focus:border-white transition-colors resize-none font-light"
+                      className="w-full bg-transparent border border-zinc-800/60 p-6 text-white focus:outline-none focus:border-white/40 transition-colors resize-none font-light text-lg rounded-sm"
                       placeholder="Tell us about your visit..."
                     />
                   </div>
-
+ 
                   <div className="space-y-4">
-                    <label className="text-[10px] uppercase tracking-widest text-zinc-500">Suggestions for us</label>
+                    <label className="text-[11px] uppercase tracking-[0.2em] text-zinc-500">Suggestions</label>
                     <textarea 
                       rows={2}
-                      className="w-full bg-transparent border-b border-zinc-800 py-4 text-white focus:outline-none focus:border-white transition-colors resize-none font-light"
+                      className="w-full bg-transparent border border-zinc-800/60 p-6 text-white focus:outline-none focus:border-white/40 transition-colors resize-none font-light text-lg rounded-sm"
                       placeholder="How can we make your next visit even better?"
                     />
                   </div>
-
+ 
                   <button 
                     type="submit"
-                    className="group flex items-center gap-4 text-[10px] uppercase tracking-[0.3em] font-medium text-white hover:text-zinc-400 transition-colors"
+                    className="group flex items-center justify-center w-full md:w-auto gap-6 px-12 py-6 bg-white text-black text-[11px] uppercase tracking-[0.3em] font-medium hover:bg-zinc-200 transition-all shadow-xl shadow-white/5"
                   >
                     Submit Review
-                    <div className="w-12 h-px bg-zinc-800 group-hover:bg-white transition-colors"></div>
-                    <Send className="w-3 h-3" />
+                    <Send className="w-4 h-4" />
                   </button>
                 </form>
               )}
@@ -406,7 +392,7 @@ function Home({ openModal }: { openModal: () => void }) {
         </div>
       </section>
 
-      {/* Info/Map Section */}
+      {/* Feedback Section */}
       <section id="contact" className="py-24 md:py-32 px-8 md:px-16 border-t border-zinc-900 overflow-hidden">
         <div className="max-w-7xl mx-auto grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12 gap-4 md:gap-6 xl:gap-8 items-center">
           
@@ -586,8 +572,8 @@ function AppLayout() {
     <div className="min-h-screen flex flex-col bg-black text-zinc-100 font-sans selection:bg-zinc-700 selection:text-white">
       {/* Navigation */}
       <nav 
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 px-6 py-4 flex items-center justify-between ${
-          isScrolled ? 'bg-black/90 backdrop-blur-md border-b border-zinc-900 py-4 shadow-2xl' : 'bg-gradient-to-b from-black/80 via-black/40 to-transparent'
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 px-6 sm:px-12 flex items-center justify-between ${
+          isScrolled ? 'bg-black/95 backdrop-blur-xl border-b border-zinc-900/50 py-3 shadow-2xl' : 'bg-gradient-to-b from-black/60 via-black/20 to-transparent py-5'
         }`}
       >
         <Link to="/" className="flex items-center gap-2">
@@ -767,15 +753,61 @@ function AppLayout() {
       </AnimatePresence>
 
       {/* Footer */}
-      <footer className="py-12 px-6 border-t border-zinc-900 mt-auto">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
-          <div className="text-[10px] text-zinc-600 uppercase tracking-[0.3em]">
-            © 2024 Katina's Kafé. All Rights Reserved.
+      <footer className="bg-zinc-950 border-t border-zinc-900/50 pt-24 pb-12 px-8 md:px-16">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-12 gap-16 mb-24">
+            <div className="md:col-span-4 lg:col-span-5">
+              <Link to="/" className="flex items-center gap-3 mb-8">
+                <div className="w-8 h-8 rounded-full border border-white flex items-center justify-center">
+                  <span className="text-white text-[10px] font-medium leading-none">K</span>
+                </div>
+                <span className="text-white font-light tracking-[0.3em] uppercase text-xs">Katina's Kafé</span>
+              </Link>
+              <p className="text-zinc-500 font-light text-base leading-relaxed max-w-sm mb-12">
+                Empowering the community through the language of signs and the ritual of coffee. Kigali's finest social sanctuary.
+              </p>
+              <div className="flex gap-6">
+                <Instagram className="w-5 h-5 text-zinc-600 hover:text-white transition-colors cursor-pointer" />
+                <Facebook className="w-5 h-5 text-zinc-600 hover:text-white transition-colors cursor-pointer" />
+                <Twitter className="w-5 h-5 text-zinc-600 hover:text-white transition-colors cursor-pointer" />
+              </div>
+            </div>
+
+            <div className="md:col-span-2 lg:col-span-2 lg:col-start-7">
+               <p className="text-[11px] uppercase tracking-[0.3em] text-zinc-400 mb-8 font-medium">Explore</p>
+               <ul className="space-y-4">
+                 <li><Link to="/menu" className="text-zinc-500 hover:text-white text-[13px] transition-colors font-light">The Menu</Link></li>
+                 <li><Link to="/order" className="text-zinc-500 hover:text-white text-[13px] transition-colors font-light">Pre-Order</Link></li>
+                 <li><Link to="/contact" className="text-zinc-500 hover:text-white text-[13px] transition-colors font-light">Location</Link></li>
+                 <li><button onClick={() => setIsModalOpen(true)} className="text-zinc-500 hover:text-white text-[13px] transition-colors font-light text-left">Reserve</button></li>
+               </ul>
+            </div>
+
+            <div className="md:col-span-2 lg:col-span-4">
+               <p className="text-[11px] uppercase tracking-[0.3em] text-zinc-400 mb-8 font-medium">Join the Community</p>
+               <div className="relative max-w-xs">
+                 <input 
+                   type="email" 
+                   placeholder="your@email.com" 
+                   className="w-full bg-transparent border-b border-zinc-800 pb-3 text-sm focus:outline-none focus:border-white transition-colors text-white font-light"
+                 />
+                 <button className="absolute right-0 bottom-3 text-[11px] uppercase tracking-widest text-zinc-500 hover:text-white transition-colors">Join</button>
+               </div>
+               <p className="text-zinc-600 text-[10px] uppercase tracking-widest mt-4 leading-loose">
+                 Receive exclusive event invites and updates from our Kigali clan.
+               </p>
+            </div>
           </div>
-          <div className="flex gap-8 text-[10px] text-zinc-500 uppercase tracking-widest font-medium">
-            <a href="#" className="hover:text-white transition-colors">Privacy</a>
-            <a href="#" className="hover:text-white transition-colors">Terms</a>
-            <a href="#" className="hover:text-white transition-colors">Careers</a>
+
+          <div className="pt-12 border-t border-zinc-900/50 flex flex-col md:flex-row justify-between items-center gap-8 text-[10px] text-zinc-700 uppercase tracking-[0.4em]">
+            <p>
+              © 2024 Katina's Kafé. All Rights Reserved.
+            </p>
+            <div className="flex gap-8">
+              <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
+              <a href="#" className="hover:text-white transition-colors">Legal Terms</a>
+              <a href="#" className="hover:text-white transition-colors">Accessibility</a>
+            </div>
           </div>
         </div>
       </footer>

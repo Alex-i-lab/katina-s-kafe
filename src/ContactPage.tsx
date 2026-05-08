@@ -8,39 +8,29 @@ export default function ContactPage() {
     <div className="bg-black text-zinc-100 font-sans min-h-screen pt-32 pb-32">
       <div className="max-w-7xl mx-auto px-8 md:px-16">
         
-        <div className="text-center mb-24">
+        <div className="text-center mb-32 px-6">
           <motion.p 
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-zinc-500 uppercase tracking-[0.3em] text-[10px] mb-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-zinc-500 uppercase tracking-[0.5em] text-[11px] mb-8"
           >
-            Get In Touch
+            Connect with us
           </motion.p>
-          <motion.div 
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="flex items-center justify-center gap-4 mb-6"
-          >
-            <div className="w-8 h-px bg-zinc-800"></div>
-            <div className="w-1.5 h-1.5 rotate-45 border border-zinc-600 bg-zinc-900"></div>
-            <div className="w-8 h-px bg-zinc-800"></div>
-          </motion.div>
           <motion.h1 
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-5xl md:text-7xl font-light tracking-tight text-white mb-6"
+            className="text-6xl md:text-8xl lg:text-9xl font-light tracking-tighter text-white mb-12"
           >
-            Contact Us
+            Contact.
           </motion.h1>
           <motion.p 
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="text-zinc-400 text-lg md:text-xl font-light max-w-2xl mx-auto leading-relaxed"
+            className="text-zinc-400 text-base md:text-lg font-light max-w-lg mx-auto leading-relaxed opacity-80"
           >
-            Whether you have a question about reservations, private events, or just want to say hello, we'd love to hear from you.
+            Whether you have a question about events, reservations, or just want to share a thought, we'd love to hear from you.
           </motion.p>
         </div>
 
@@ -134,53 +124,53 @@ export default function ContactPage() {
            transition={{ delay: 0.6 }}
            className="border-t border-zinc-900 pt-24"
         >
-          <div className="grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12 gap-4 md:gap-6 xl:gap-8">
+          <div className="grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12 gap-12 md:gap-16">
             <div className="col-span-4 md:col-span-8 xl:col-span-5">
-              <h2 className="text-4xl font-light text-white mb-6 tracking-tight">Drop us a line</h2>
-              <p className="text-zinc-400 font-light leading-relaxed mb-8">
+              <p className="text-zinc-500 uppercase tracking-[0.3em] text-[11px] mb-12">General Inquiry</p>
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-light text-white mb-10 tracking-tight leading-tight">Drop us a line</h2>
+              <p className="text-zinc-400 font-light leading-relaxed mb-12 text-base md:text-lg opacity-80">
                 Please fill out the form below and we will get back to you as soon as possible.
               </p>
             </div>
             
             <div className="col-span-4 md:col-span-8 xl:col-span-7">
-               <form className="space-y-8" onSubmit={(e) => { e.preventDefault(); alert('Message sent!'); }}>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+               <form className="space-y-12" onSubmit={(e) => { e.preventDefault(); alert('Message sent!'); }}>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                     <div className="space-y-4">
-                      <label className="text-[10px] uppercase tracking-widest text-zinc-500">Name</label>
+                      <label className="text-[11px] uppercase tracking-[0.22em] text-zinc-500">Name</label>
                       <input 
                         required
                         type="text" 
-                        className="w-full bg-transparent border-b border-zinc-800 py-4 text-white focus:outline-none focus:border-white transition-colors font-light"
+                        className="w-full bg-transparent border-b border-zinc-800 pb-4 text-white focus:outline-none focus:border-white transition-colors font-light text-lg"
                         placeholder="Your name"
                       />
                     </div>
                     <div className="space-y-4">
-                      <label className="text-[10px] uppercase tracking-widest text-zinc-500">Email</label>
+                      <label className="text-[11px] uppercase tracking-[0.22em] text-zinc-500">Email</label>
                       <input 
                         required
                         type="email" 
-                        className="w-full bg-transparent border-b border-zinc-800 py-4 text-white focus:outline-none focus:border-white transition-colors font-light"
+                        className="w-full bg-transparent border-b border-zinc-800 pb-4 text-white focus:outline-none focus:border-white transition-colors font-light text-lg"
                         placeholder="your@email.com"
                       />
                     </div>
                   </div>
-
+ 
                   <div className="space-y-4">
-                    <label className="text-[10px] uppercase tracking-widest text-zinc-500">Message</label>
+                    <label className="text-[11px] uppercase tracking-[0.22em] text-zinc-500">Message</label>
                     <textarea 
                       required
-                      rows={5}
-                      className="w-full bg-transparent border-b border-zinc-800 py-4 text-white focus:outline-none focus:border-white transition-colors resize-none font-light"
+                      rows={4}
+                      className="w-full bg-transparent border border-zinc-800 p-6 text-white focus:outline-none focus:border-white transition-colors resize-none font-light text-lg rounded-sm"
                       placeholder="How can we help you?"
                     />
                   </div>
-
+ 
                   <button 
                     type="submit"
-                    className="group flex items-center gap-4 text-[10px] uppercase tracking-[0.3em] font-medium text-white hover:text-zinc-400 transition-colors"
+                    className="group flex items-center justify-center w-full md:w-auto gap-6 px-12 py-6 bg-white text-black text-[11px] uppercase tracking-[0.3em] font-medium hover:bg-zinc-200 transition-all shadow-xl shadow-white/5"
                   >
                     Send Message
-                    <div className="w-12 h-px bg-zinc-800 group-hover:bg-white transition-colors"></div>
                   </button>
                 </form>
             </div>

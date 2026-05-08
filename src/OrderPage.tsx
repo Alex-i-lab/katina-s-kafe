@@ -69,40 +69,30 @@ export default function OrderPage() {
   return (
     <div className="bg-black text-zinc-100 font-sans min-h-screen pt-32 pb-32">
       <div className="max-w-7xl mx-auto px-8 md:px-16">
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 px-6">
           <motion.p 
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-zinc-500 uppercase tracking-[0.3em] text-[10px] mb-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-zinc-500 uppercase tracking-[0.4em] text-[11px] mb-6"
           >
-            Order Online
+            Digital Concierge
           </motion.p>
-          <motion.div 
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="flex items-center justify-center gap-4 mb-6"
-          >
-            <div className="w-8 h-px bg-zinc-800"></div>
-            <div className="w-1.5 h-1.5 rotate-45 border border-zinc-600 bg-zinc-900"></div>
-            <div className="w-8 h-px bg-zinc-800"></div>
-          </motion.div>
           <motion.h1 
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-4xl md:text-6xl font-light tracking-tight text-white mb-6"
+            className="text-5xl md:text-7xl lg:text-8xl font-light tracking-tighter text-white mb-8"
           >
-            Skip the Line
+            Order Online.
           </motion.h1>
         </div>
 
         {/* Search Bar */}
-        <div className="max-w-2xl mx-auto mb-16 relative">
+        <div className="max-w-xl mx-auto mb-20 relative">
           <input
             type="text"
-            className="w-full bg-zinc-900 border border-zinc-800 p-4 pl-6 text-white text-sm uppercase tracking-widest focus:outline-none focus:border-white transition-colors"
-            placeholder="Search for your favorite item..."
+            className="w-full bg-zinc-900/50 border-b border-zinc-800 p-6 text-white text-xs uppercase tracking-widest focus:outline-none focus:border-white transition-all placeholder:text-zinc-700"
+            placeholder="Search our selection..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -126,37 +116,37 @@ export default function OrderPage() {
                   {displayedItems.map((item, idx) => (
                     <motion.div
                       key={item.name}
-                      initial={{ opacity: 0, scale: 0.95 }}
-                      animate={{ opacity: 1, scale: 1 }}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, scale: 0.95 }}
-                      transition={{ duration: 0.3 }}
-                      className="bg-zinc-900/40 border border-zinc-800 flex flex-col group hover:border-zinc-500 transition-colors"
+                      transition={{ duration: 0.4 }}
+                      className="bg-zinc-950 border border-zinc-900/50 flex flex-col group hover:border-zinc-700 transition-all duration-500 rounded-sm overflow-hidden"
                     >
                       {item.image && (
-                         <div className="w-full h-48 overflow-hidden border-b border-zinc-800">
+                         <div className="w-full h-56 overflow-hidden">
                            <img 
                              src={item.image} 
                              alt={item.name} 
-                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+                             className="w-full h-full object-cover grayscale-[0.4] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000" 
                              referrerPolicy="no-referrer"
                            />
                          </div>
                       )}
-                      <div className="p-6 flex flex-col flex-1 justify-between">
-                        <div>
-                          <div className="flex justify-between items-start mb-4">
-                            <h3 className="text-lg font-light text-white group-hover:text-zinc-300 transition-colors">{item.name}</h3>
-                            <span className="text-zinc-300">RWF {parsePrice(item.price).toFixed(2)}</span>
+                      <div className="p-8 flex flex-col flex-1">
+                        <div className="mb-8">
+                          <div className="flex justify-between items-baseline mb-3 gap-4">
+                            <h3 className="text-xl font-light text-zinc-100 group-hover:text-white transition-colors tracking-tight">{item.name}</h3>
+                            <span className="text-zinc-400 font-mono text-[13px] shrink-0 italic">RWF {parsePrice(item.price).toFixed(2)}</span>
                           </div>
                           {item.description && (
-                            <p className="text-sm font-light text-zinc-500 mb-6">{item.description}</p>
+                            <p className="text-[15px] font-light text-zinc-500 leading-relaxed group-hover:text-zinc-400 transition-colors">{item.description}</p>
                           )}
                         </div>
                         <button
                           onClick={() => addToCart(item)}
-                          className="w-full flex items-center justify-center gap-2 border border-zinc-700 py-3 text-xs uppercase tracking-widest text-zinc-300 hover:bg-white hover:text-black hover:border-white transition-all mt-auto"
+                          className="w-full py-4 bg-zinc-900 text-zinc-400 text-[11px] uppercase tracking-[0.2em] font-medium border border-zinc-800 hover:bg-white hover:text-black hover:border-white transition-all mt-auto"
                         >
-                          <Plus className="w-4 h-4" /> Add
+                          Add to order
                         </button>
                       </div>
                     </motion.div>
