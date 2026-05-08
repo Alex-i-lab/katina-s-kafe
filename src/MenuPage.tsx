@@ -34,7 +34,20 @@ export default function MenuPage() {
   const suggestions = searchQuery.trim() === '' ? [] : FULL_MENU_ITEMS.filter(item => 
     item.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
     item.description.toLowerCase().includes(searchQuery.toLowerCase())
-  ).slice(0, 5);
+  ).slice(0, 8);
+
+  const getMatchCountForGroup = (groupLabel: string) => {
+    const groupCategories = filterGroups.find(g => g.label === groupLabel)?.categories || [];
+    if (searchQuery.trim() === '') return groupLabel;
+    
+    const count = FULL_MENU_ITEMS.filter(item => 
+      groupCategories.includes(item.category) && 
+      (item.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+       item.description.toLowerCase().includes(searchQuery.toLowerCase()))
+    ).length;
+
+    return count > 0 ? `${groupLabel} (${count})` : groupLabel;
+  };
 
   return (
     <div className="bg-black text-zinc-100 font-sans pb-32 min-h-screen">
@@ -56,7 +69,7 @@ export default function MenuPage() {
             transition={{ duration: 1 }}
           >
             <p className="text-zinc-500 uppercase tracking-[0.5em] text-[11px] mb-8">Culinary Experience</p>
-            <h1 className="text-6xl md:text-8xl lg:text-9xl font-light tracking-tighter text-white mb-12">Fine Dining.</h1>
+            <h1 className="text-6xl md:text-8xl lg:text-9xl font-light tracking-tighter text-white mb-12">Artisan Selection.</h1>
           </motion.div>
         </div>
       </section>
@@ -88,18 +101,20 @@ export default function MenuPage() {
                   suggestions.map((item, idx) => (
                     <div 
                       key={idx}
-                      className="px-4 py-4 hover:bg-zinc-800/50 cursor-pointer border-b border-zinc-900 last:border-0 transition-colors"
+                      className="px-4 py-3 hover:bg-zinc-800/80 cursor-pointer border-b border-zinc-900 last:border-0 transition-colors"
                       onMouseDown={(e) => {
                         e.preventDefault(); // Prevent input blur
                         setSearchQuery(item.name);
                         setIsSearchFocused(false);
                       }}
                     >
-                      <div className="flex justify-between items-baseline mb-1 gap-4">
-                        <h4 className="text-zinc-200 text-sm font-light tracking-wide truncate">{item.name}</h4>
-                        <span className="text-zinc-500 text-[10px] font-mono shrink-0">{item.price}</span>
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-[10px] uppercase font-light tracking-[0.2em] text-zinc-600">{item.category}</span>
                       </div>
-                      <p className="text-zinc-500 text-xs font-light truncate">{item.description}</p>
+                      <div className="flex justify-between items-baseline gap-4">
+                        <h4 className="text-zinc-200 text-sm font-light tracking-wide truncate">{item.name}</h4>
+                        <span className="text-zinc-500 text-[10px] font-mono shrink-0 italic">{item.price}</span>
+                      </div>
                     </div>
                   ))
                 ) : (
@@ -117,13 +132,13 @@ export default function MenuPage() {
             <button
               key={group.label}
               onClick={() => setActiveFilter(group.label)}
-              className={`text-[10px] md:text-xs uppercase tracking-widest px-5 py-2.5 border transition-all duration-300 ${
+              className={`text-[10px] md:text-xs uppercase tracking-widest px-6 py-3 border transition-all duration-300 rounded-sm ${
                 activeFilter === group.label
-                  ? 'bg-zinc-100 text-black border-zinc-100'
-                  : 'border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-500'
+                  ? 'bg-white text-black border-white shadow-xl shadow-white/5'
+                  : 'border-zinc-800 text-zinc-500 hover:text-white hover:border-zinc-600'
               }`}
             >
-              {group.label}
+              {getMatchCountForGroup(group.label)}
             </button>
           ))}
         </div>

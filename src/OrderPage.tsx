@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ShoppingBag, Plus, Minus, X, ArrowRight, CreditCard, CheckCircle } from 'lucide-react';
+import { ShoppingBag, Plus, Minus, X, ArrowRight, CreditCard, CheckCircle, Loader2 } from 'lucide-react';
 import { FULL_MENU_ITEMS, MenuItem } from './data';
 
 export default function OrderPage() {
@@ -9,6 +9,33 @@ export default function OrderPage() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [checkoutStep, setCheckoutStep] = useState<'cart' | 'details' | 'success'>('cart');
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [isMenuLoading, setIsMenuLoading] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({ name: '', email: '', pickupTime: 'asap' });
+  const [errors, setErrors] = useState<{name?: string, email?: string}>({});
+
+  const validateField = (name: string, value: string) => {
+    let error = '';
+    if (name === 'name') {
+      if (value.trim().length > 0 && value.trim().length < 2) error = 'Name must be at least 2 characters';
+    } else if (name === 'email') {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (value.trim().length > 0 && !emailRegex.test(value)) error = 'Please enter a valid email address';
+    }
+    setErrors(prev => ({ ...prev, [name]: error }));
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+    if (name === 'name' || name === 'email') {
+      validateField(name, value);
+    }
+  };
+
+  const isFormValid = formData.name.trim().length >= 2 && 
+                     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email) &&
+                     !errors.name && !errors.email;
 
   // Clear toast after 3 seconds
   useEffect(() => {
@@ -17,6 +44,21 @@ export default function OrderPage() {
       return () => clearTimeout(timer);
     }
   }, [toastMessage]);
+
+  // Simulate initial menu loading
+  useEffect(() => {
+    const timer = setTimeout(() => setIsMenuLoading(false), 1200);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleCheckout = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    // Simulate processing payment/order
+    await new Promise(resolve => setTimeout(resolve, 1800));
+    setIsSubmitting(false);
+    setCheckoutStep('success');
+  };
 
   const displayedItems = searchQuery.trim().length > 0 
     ? FULL_MENU_ITEMS.filter(item => 
@@ -101,7 +143,21 @@ export default function OrderPage() {
         {/* Menu Grid */}
         <div className="grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12 gap-6 xl:gap-8 relative">
           <div className="col-span-4 md:col-span-8 xl:col-span-8">
-            {searchQuery.trim().length === 0 ? (
+            {isMenuLoading ? (
+               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                 {[1, 2, 3, 4].map((n) => (
+                   <div key={n} className="bg-zinc-950 border border-zinc-900/50 rounded-sm h-[400px] animate-pulse">
+                     <div className="w-full h-56 bg-zinc-900" />
+                     <div className="p-8 space-y-4">
+                       <div className="h-6 bg-zinc-900 w-3/4" />
+                       <div className="h-4 bg-zinc-900 w-full" />
+                       <div className="h-4 bg-zinc-900 w-1/2" />
+                       <div className="h-12 bg-zinc-900 w-full mt-auto" />
+                     </div>
+                   </div>
+                 ))}
+               </div>
+            ) : searchQuery.trim().length === 0 ? (
                <div className="text-center py-24 border border-zinc-800 bg-zinc-900/40">
                  <p className="text-zinc-500 font-light mb-2">What are you craving today?</p>
                  <p className="text-zinc-600 text-sm">Use the search bar above to find items (e.g., "Latte", "Croissant")</p>
@@ -175,30 +231,50 @@ export default function OrderPage() {
                   <div className="space-y-8">
                     {checkoutStep === 'cart' && (
                       <>
-                        <div className="space-y-6 max-h-[40vh] overflow-y-auto pr-2">
-                          {cart.map((cartItem) => (
-                            <div key={cartItem.item.name} className="flex justify-between items-center group">
-                              <div className="flex-1">
-                                <h4 className="text-sm font-light text-white">{cartItem.item.name}</h4>
-                                <span className="text-xs text-zinc-500 font-mono">RWF {(parsePrice(cartItem.item.price) * cartItem.quantity).toFixed(2)}</span>
-                              </div>
-                              <div className="flex items-center gap-3 opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity">
-                                <button onClick={() => updateQuantity(cartItem.item.name, -1)} className="w-8 h-8 flex justify-center items-center border border-zinc-700 hover:bg-zinc-800 rounded-full">
-                                  <Minus className="w-3 h-3 text-zinc-400" />
-                                </button>
-                                <span className="text-sm">{cartItem.quantity}</span>
-                                <button onClick={() => updateQuantity(cartItem.item.name, 1)} className="w-8 h-8 flex justify-center items-center border border-zinc-700 hover:bg-zinc-800 rounded-full">
-                                  <Plus className="w-3 h-3 text-zinc-400" />
-                                </button>
-                              </div>
-                            </div>
-                          ))}
+                        <div className="space-y-4 max-h-[40vh] overflow-y-auto pr-2 custom-scrollbar">
+                          <AnimatePresence initial={false} mode="popLayout">
+                            {cart.map((cartItem) => (
+                              <motion.div 
+                                key={cartItem.item.name}
+                                layout
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, scale: 0.9 }}
+                                transition={{ duration: 0.3 }}
+                                className="flex justify-between items-start group bg-zinc-900/50 p-4 border border-zinc-800/50 hover:border-zinc-700 transition-colors rounded-sm"
+                              >
+                                <div className="flex-1">
+                                  <h4 className="text-sm font-light text-zinc-100 mb-1">{cartItem.item.name}</h4>
+                                  <span className="text-[11px] text-zinc-500 font-mono italic">RWF {(parsePrice(cartItem.item.price) * cartItem.quantity).toFixed(2)}</span>
+                                </div>
+                                <div className="flex flex-col items-end gap-2">
+                                  <div className="flex items-center gap-2 border border-zinc-800 rounded-full px-2 py-1 bg-black/40">
+                                    <button onClick={() => updateQuantity(cartItem.item.name, -1)} className="w-5 h-5 flex justify-center items-center hover:bg-zinc-800 rounded-full transition-colors">
+                                      <Minus className="w-2.5 h-2.5 text-zinc-500" />
+                                    </button>
+                                    <span className="text-[11px] w-4 text-center font-medium font-mono">{cartItem.quantity}</span>
+                                    <button onClick={() => updateQuantity(cartItem.item.name, 1)} className="w-5 h-5 flex justify-center items-center hover:bg-zinc-800 rounded-full transition-colors">
+                                      <Plus className="w-2.5 h-2.5 text-zinc-500" />
+                                    </button>
+                                  </div>
+                                </div>
+                              </motion.div>
+                            ))}
+                          </AnimatePresence>
                         </div>
 
-                        <div className="border-t border-zinc-800 pt-6 space-y-4">
-                          <div className="flex justify-between text-white text-lg font-light pt-2">
-                            <span>Total</span>
+                        <div className="mt-8 pt-8 border-t border-zinc-800 space-y-4 bg-zinc-950/50 -mx-8 -mb-8 p-8 border-t border-zinc-800 shadow-[0_-12px_24px_-12px_rgba(0,0,0,0.5)]">
+                          <div className="flex justify-between text-zinc-500 text-[10px] uppercase tracking-widest font-medium">
+                            <span>Subtotal</span>
                             <span>RWF {totalAmount.toFixed(2)}</span>
+                          </div>
+                          <div className="flex justify-between text-zinc-500 text-[10px] uppercase tracking-widest font-medium">
+                            <span>Service Fee</span>
+                            <span>RWF 0.00</span>
+                          </div>
+                          <div className="flex justify-between text-white text-xl font-light pt-2">
+                            <span className="tracking-tighter">Total Amount</span>
+                            <span className="font-mono">RWF {totalAmount.toFixed(2)}</span>
                           </div>
                         </div>
 
@@ -219,19 +295,47 @@ export default function OrderPage() {
                     )}
 
                     {checkoutStep === 'details' && (
-                      <form onSubmit={(e) => { e.preventDefault(); setCheckoutStep('success'); }} className="space-y-6">
-                         <div className="space-y-4">
+                      <form onSubmit={handleCheckout} className="space-y-6">
+                         <div className="space-y-6">
                             <div>
-                               <label className="text-[10px] uppercase tracking-widest text-zinc-500 block mb-2">Name</label>
-                               <input required type="text" className="w-full bg-transparent border-b border-zinc-700 py-2 text-white focus:outline-none focus:border-white font-light"/>
+                               <div className="flex justify-between items-baseline mb-2">
+                                 <label className="text-[10px] uppercase tracking-widest text-zinc-500 block">Name</label>
+                                 {errors.name && <span className="text-[9px] text-red-500 uppercase tracking-wider">{errors.name}</span>}
+                               </div>
+                               <input 
+                                 required 
+                                 type="text" 
+                                 name="name"
+                                 value={formData.name}
+                                 onChange={handleInputChange}
+                                 placeholder="Katina User"
+                                 className={`w-full bg-transparent border-b py-2 text-white focus:outline-none transition-colors font-light placeholder:text-zinc-800 ${errors.name ? 'border-red-900/50 focus:border-red-500' : 'border-zinc-700 focus:border-white'}`}
+                               />
                             </div>
                             <div>
-                               <label className="text-[10px] uppercase tracking-widest text-zinc-500 block mb-2">Email</label>
-                               <input required type="email" className="w-full bg-transparent border-b border-zinc-700 py-2 text-white focus:outline-none focus:border-white font-light"/>
+                               <div className="flex justify-between items-baseline mb-2">
+                                 <label className="text-[10px] uppercase tracking-widest text-zinc-500 block">Email</label>
+                                 {errors.email && <span className="text-[9px] text-red-500 uppercase tracking-wider">{errors.email}</span>}
+                               </div>
+                               <input 
+                                 required 
+                                 type="email" 
+                                 name="email"
+                                 value={formData.email}
+                                 onChange={handleInputChange}
+                                 placeholder="user@example.com"
+                                 className={`w-full bg-transparent border-b py-2 text-white focus:outline-none transition-colors font-light placeholder:text-zinc-800 ${errors.email ? 'border-red-900/50 focus:border-red-500' : 'border-zinc-700 focus:border-white'}`}
+                               />
                             </div>
                             <div>
                                <label className="text-[10px] uppercase tracking-widest text-zinc-500 block mb-2">Pickup Time</label>
-                               <select required className="w-full bg-transparent border-b border-zinc-700 py-2 text-white focus:outline-none focus:border-white font-light [&>option]:bg-zinc-900">
+                               <select 
+                                 required 
+                                 name="pickupTime"
+                                 value={formData.pickupTime}
+                                 onChange={handleInputChange}
+                                 className="w-full bg-transparent border-b border-zinc-700 py-2 text-white focus:outline-none focus:border-white font-light [&>option]:bg-zinc-900"
+                               >
                                  <option value="asap">ASAP (15-20 mins)</option>
                                  <option value="30m">In 30 Minutes</option>
                                  <option value="1h">In 1 Hour</option>
@@ -240,11 +344,25 @@ export default function OrderPage() {
                          </div>
                          
                          <div className="pt-6 flex gap-4">
-                            <button type="button" onClick={() => setCheckoutStep('cart')} className="flex-1 py-4 border border-zinc-700 text-zinc-400 text-xs uppercase tracking-widest hover:text-white hover:border-white transition-colors">
-                              Back
+                            <button 
+                              type="button" 
+                              disabled={isSubmitting}
+                              onClick={() => setCheckoutStep('cart')} 
+                              className="flex-1 py-4 border border-zinc-700 text-zinc-400 text-xs uppercase tracking-widest hover:text-white hover:border-white transition-colors disabled:opacity-50"
+                            >
+                               Back
                             </button>
-                            <button type="submit" className="flex-1 text-center py-4 bg-white text-black text-xs uppercase tracking-widest font-semibold hover:bg-zinc-200 transition-colors">
-                              Pay Now
+                            <button 
+                              type="submit" 
+                              disabled={isSubmitting || !isFormValid}
+                              className="flex-1 text-center py-4 bg-white text-black text-xs uppercase tracking-widest font-semibold hover:bg-zinc-200 transition-colors flex items-center justify-center gap-2 disabled:bg-zinc-800 disabled:text-zinc-600 disabled:border-zinc-800"
+                            >
+                               {isSubmitting ? (
+                                 <>
+                                   <Loader2 className="w-4 h-4 animate-spin" />
+                                   Processing
+                                 </>
+                               ) : 'Pay Now'}
                             </button>
                          </div>
                       </form>
@@ -325,32 +443,59 @@ export default function OrderPage() {
                   <div className="space-y-8">
                     {checkoutStep === 'cart' && (
                       <>
-                        <div className="space-y-6">
-                          {cart.map((cartItem) => (
-                            <div key={cartItem.item.name} className="flex flex-col gap-3 group border-b border-zinc-900 pb-4">
-                              <div className="flex justify-between items-center">
-                                <h4 className="text-sm font-light text-white">{cartItem.item.name}</h4>
-                                <span className="text-sm text-zinc-400 font-mono">RWF {(parsePrice(cartItem.item.price) * cartItem.quantity).toFixed(2)}</span>
-                              </div>
-                              <div className="flex items-center gap-4">
-                                <button onClick={() => updateQuantity(cartItem.item.name, -1)} className="w-10 h-10 flex justify-center items-center border border-zinc-700 hover:bg-zinc-800 rounded-full bg-zinc-900 text-white">
-                                  <Minus className="w-4 h-4 text-zinc-300" />
-                                </button>
-                                <span className="text-sm w-4 text-center">{cartItem.quantity}</span>
-                                <button onClick={() => updateQuantity(cartItem.item.name, 1)} className="w-10 h-10 flex justify-center items-center border border-zinc-700 hover:bg-zinc-800 rounded-full bg-zinc-900 text-white">
-                                  <Plus className="w-4 h-4 text-zinc-300" />
-                                </button>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
+                         <div className="space-y-4 mb-12">
+                           <AnimatePresence initial={false} mode="popLayout">
+                             {cart.map((cartItem) => (
+                               <motion.div 
+                                 key={cartItem.item.name}
+                                 layout
+                                 initial={{ opacity: 0, y: 10 }}
+                                 animate={{ opacity: 1, y: 0 }}
+                                 exit={{ opacity: 0, scale: 0.9 }}
+                                 className="flex flex-col gap-3 group border border-zinc-900 bg-zinc-900/40 p-4 rounded-sm"
+                               >
+                                 <div className="flex justify-between items-start">
+                                   <div className="flex-1 pr-4">
+                                     <h4 className="text-sm font-light text-white mb-1">{cartItem.item.name}</h4>
+                                     <span className="text-[11px] text-zinc-500 font-mono italic">RWF {(parsePrice(cartItem.item.price) * cartItem.quantity).toFixed(2)}</span>
+                                   </div>
+                                   <button 
+                                     onClick={() => updateQuantity(cartItem.item.name, -cartItem.quantity)}
+                                     className="text-zinc-700 hover:text-zinc-500 transition-colors"
+                                   >
+                                     <X className="w-3.5 h-3.5" />
+                                   </button>
+                                 </div>
+                                 <div className="flex items-center gap-4">
+                                   <div className="flex items-center bg-black rounded-full border border-zinc-800">
+                                     <button onClick={() => updateQuantity(cartItem.item.name, -1)} className="w-10 h-10 flex justify-center items-center border-r border-zinc-800 hover:bg-zinc-900 transition-colors">
+                                       <Minus className="w-3 h-3 text-zinc-400" />
+                                     </button>
+                                     <span className="text-xs font-mono w-10 text-center text-white">{cartItem.quantity}</span>
+                                     <button onClick={() => updateQuantity(cartItem.item.name, 1)} className="w-10 h-10 flex justify-center items-center border-l border-zinc-800 hover:bg-zinc-900 transition-colors">
+                                       <Plus className="w-3 h-3 text-zinc-400" />
+                                     </button>
+                                   </div>
+                                 </div>
+                               </motion.div>
+                             ))}
+                           </AnimatePresence>
+                         </div>
 
-                        <div className="border-t border-zinc-800 pt-6 space-y-4">
-                          <div className="flex justify-between text-white text-lg font-light pt-2">
-                            <span>Total</span>
-                            <span>RWF {totalAmount.toFixed(2)}</span>
-                          </div>
-                        </div>
+                         <div className="mt-auto border-t border-zinc-800 pt-8 pb-8 space-y-4">
+                           <div className="flex justify-between text-zinc-500 text-[10px] uppercase tracking-[0.2em]">
+                             <span>Subtotal</span>
+                             <span className="font-mono">RWF {totalAmount.toFixed(2)}</span>
+                           </div>
+                           <div className="flex justify-between text-zinc-500 text-[10px] uppercase tracking-[0.2em]">
+                             <span>Est. Processing</span>
+                             <span className="font-mono">RWF 0.00</span>
+                           </div>
+                           <div className="flex justify-between text-white text-2xl font-light pt-2">
+                             <span className="tracking-tight">Grand Total</span>
+                             <span className="font-mono text-xl">RWF {totalAmount.toFixed(2)}</span>
+                           </div>
+                         </div>
 
                         <button 
                           onClick={() => setCheckoutStep('details')}
@@ -369,19 +514,45 @@ export default function OrderPage() {
                     )}
 
                     {checkoutStep === 'details' && (
-                      <form onSubmit={(e) => { e.preventDefault(); setCheckoutStep('success'); }} className="space-y-6">
-                         <div className="space-y-4">
+                      <form onSubmit={handleCheckout} className="space-y-6">
+                         <div className="space-y-6">
                             <div>
-                               <label className="text-[10px] uppercase tracking-widest text-zinc-500 block mb-2">Name</label>
-                               <input required type="text" className="w-full bg-transparent border-b border-zinc-700 py-3 text-white focus:outline-none focus:border-white font-light"/>
+                               <div className="flex justify-between items-baseline mb-2">
+                                 <label className="text-[10px] uppercase tracking-widest text-zinc-500 block">Name</label>
+                                 {errors.name && <span className="text-[9px] text-red-500 uppercase tracking-wider">{errors.name}</span>}
+                               </div>
+                               <input 
+                                 required 
+                                 type="text" 
+                                 name="name"
+                                 value={formData.name}
+                                 onChange={handleInputChange}
+                                 className={`w-full bg-transparent border-b py-3 text-white focus:outline-none transition-colors font-light ${errors.name ? 'border-red-900/50 focus:border-red-500' : 'border-zinc-700 focus:border-white'}`}
+                               />
                             </div>
                             <div>
-                               <label className="text-[10px] uppercase tracking-widest text-zinc-500 block mb-2">Email</label>
-                               <input required type="email" className="w-full bg-transparent border-b border-zinc-700 py-3 text-white focus:outline-none focus:border-white font-light"/>
+                               <div className="flex justify-between items-baseline mb-2">
+                                 <label className="text-[10px] uppercase tracking-widest text-zinc-500 block">Email</label>
+                                 {errors.email && <span className="text-[9px] text-red-500 uppercase tracking-wider">{errors.email}</span>}
+                               </div>
+                               <input 
+                                 required 
+                                 type="email" 
+                                 name="email"
+                                 value={formData.email}
+                                 onChange={handleInputChange}
+                                 className={`w-full bg-transparent border-b py-3 text-white focus:outline-none transition-colors font-light ${errors.email ? 'border-red-900/50 focus:border-red-500' : 'border-zinc-700 focus:border-white'}`}
+                               />
                             </div>
                             <div>
                                <label className="text-[10px] uppercase tracking-widest text-zinc-500 block mb-2">Pickup Time</label>
-                               <select required className="w-full bg-transparent border-b border-zinc-700 py-3 text-white focus:outline-none focus:border-white font-light [&>option]:bg-zinc-900">
+                               <select 
+                                 required 
+                                 name="pickupTime"
+                                 value={formData.pickupTime}
+                                 onChange={handleInputChange}
+                                 className="w-full bg-transparent border-b border-zinc-700 py-3 text-white focus:outline-none focus:border-white font-light [&>option]:bg-zinc-900"
+                               >
                                  <option value="asap">ASAP (15-20 mins)</option>
                                  <option value="30m">In 30 Minutes</option>
                                  <option value="1h">In 1 Hour</option>
@@ -390,11 +561,25 @@ export default function OrderPage() {
                          </div>
                          
                          <div className="pt-6 flex gap-4">
-                            <button type="button" onClick={() => setCheckoutStep('cart')} className="flex-1 py-4 border border-zinc-700 text-zinc-400 text-xs uppercase tracking-widest hover:text-white hover:border-white transition-colors">
-                              Back
+                            <button 
+                              type="button" 
+                              disabled={isSubmitting}
+                              onClick={() => setCheckoutStep('cart')} 
+                              className="flex-1 py-4 border border-zinc-700 text-zinc-400 text-xs uppercase tracking-widest hover:text-white hover:border-white transition-colors disabled:opacity-50"
+                            >
+                               Back
                             </button>
-                            <button type="submit" className="flex-1 text-center py-4 bg-white text-black text-xs uppercase tracking-widest font-semibold hover:bg-zinc-200 transition-colors">
-                              Pay Now
+                            <button 
+                              type="submit" 
+                              disabled={isSubmitting || !isFormValid}
+                              className="flex-1 text-center py-4 bg-white text-black text-xs uppercase tracking-widest font-semibold hover:bg-zinc-200 transition-colors flex items-center justify-center gap-2 disabled:bg-zinc-800 disabled:text-zinc-600 disabled:border-zinc-800"
+                            >
+                               {isSubmitting ? (
+                                 <>
+                                   <Loader2 className="w-4 h-4 animate-spin" />
+                                   Processing
+                                 </>
+                               ) : 'Pay Now'}
                             </button>
                          </div>
                       </form>

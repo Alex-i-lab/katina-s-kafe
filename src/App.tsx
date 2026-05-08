@@ -57,13 +57,14 @@ function Home({ openModal }: { openModal: () => void }) {
           <img 
             src="https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&q=80&w=2000" 
             alt="Atmospheric cafe interior" 
-            className="w-full h-full object-cover opacity-60 grayscale-[0.2]"
+            className="w-full h-full object-cover opacity-35 grayscale-[0.3]"
             referrerPolicy="no-referrer"
           />
+          <div className="absolute inset-0 bg-black/40" />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black" />
         </motion.div>
 
-        <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
+        <div className="relative z-10 text-center px-6 max-w-4xl mx-auto pt-24 md:pt-32">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -145,27 +146,30 @@ function Home({ openModal }: { openModal: () => void }) {
             </Link>
           </div>
 
-          <div className="grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12 gap-8 md:gap-10 mt-8">
+          <div className="grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12 gap-4 md:gap-8 xl:gap-10 mt-8">
             {[
               { 
                 name: 'Coffee & Tea', 
                 subtitle: 'AROMATIC BREWS', 
                 img: 'https://res.cloudinary.com/dul9fo9cv/image/upload/v1776855894/download_6_im6mjn.jpg', 
                 span: 'col-span-4 md:col-span-8 xl:col-span-8',
+                height: 'h-[400px] md:h-[500px]',
                 showLink: false
               },
               { 
-                name: 'Breakfast & Brunch', 
-                subtitle: 'MORNING CLASSICS', 
+                name: 'Brunch', 
+                subtitle: 'MORNINGS', 
                 img: 'https://res.cloudinary.com/dul9fo9cv/image/upload/v1776853092/download_5_o0htca.jpg', 
-                span: 'col-span-4 md:col-span-4 xl:col-span-4',
+                span: 'col-span-2 md:col-span-4 xl:col-span-4',
+                height: 'h-[300px] md:h-[500px]',
                 showLink: false
               },
               { 
-                name: 'Cocktails & Shots', 
-                subtitle: 'EVENING SPIRITS', 
+                name: 'Cocktails', 
+                subtitle: 'EVENING', 
                 img: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&q=80&w=800', 
-                span: 'col-span-4 md:col-span-4 xl:col-span-4',
+                span: 'col-span-2 md:col-span-4 xl:col-span-4',
+                height: 'h-[300px] md:h-[500px]',
                 showLink: false
               },
               { 
@@ -173,6 +177,7 @@ function Home({ openModal }: { openModal: () => void }) {
                 subtitle: 'SOCIAL PLATES', 
                 img: 'https://res.cloudinary.com/dul9fo9cv/image/upload/v1778164589/Spicy_Chicken_Fry_Recipe_Crispy_Kababs_-_Cubes_N_Juliennes_lvt13j.jpg', 
                 span: 'col-span-4 md:col-span-8 xl:col-span-8',
+                height: 'h-[400px] md:h-[500px]',
                 showLink: true
               },
             ].map((cat, idx) => (
@@ -182,7 +187,7 @@ function Home({ openModal }: { openModal: () => void }) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1, duration: 0.6 }}
-                className={`${cat.span} h-64 md:h-[340px]`}
+                className={`${cat.span} ${cat.height}`}
               >
                 <Link to="/menu" className="group block relative w-full h-full overflow-hidden bg-zinc-900 border border-transparent hover:border-zinc-800 transition-colors duration-500">
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10" />
@@ -227,23 +232,34 @@ function Home({ openModal }: { openModal: () => void }) {
             <SectionHeading subtitle="Ambiance">The Visuals</SectionHeading>
           </div>
           
-          <div className="grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12 gap-10 md:gap-12 auto-rows-[350px]">
-            <div className="col-span-4 md:col-span-8 xl:col-span-8 row-span-2 relative group overflow-hidden bg-zinc-900 shadow-2xl">
+          <div className="grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12 gap-4 md:gap-8 xl:gap-8 auto-rows-[200px] md:auto-rows-[300px]">
+            {/* Featured Tall Image */}
+            <div className="col-span-4 md:col-span-4 xl:col-span-4 row-span-2 relative group overflow-hidden bg-zinc-900 shadow-2xl border border-zinc-900 hover:border-zinc-800 transition-colors">
               <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&q=80&w=1200" alt="Espresso machine" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 grayscale-[0.4] group-hover:grayscale-0" referrerPolicy="no-referrer" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-12">
-                <p className="text-white text-xs uppercase tracking-widest font-light">Craftsmanship in Every Shot</p>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-500 flex items-end p-8 md:p-10">
+                <p className="text-white text-[10px] md:text-xs uppercase tracking-[0.3em] font-light">Craftsmanship in Every Shot</p>
               </div>
             </div>
             
-            <div className="col-span-4 md:col-span-4 xl:col-span-4 relative group overflow-hidden bg-zinc-900">
+            {/* Wide Image */}
+            <div className="col-span-4 md:col-span-4 xl:col-span-8 row-span-1 relative group overflow-hidden bg-zinc-900 border border-zinc-900 hover:border-zinc-800 transition-colors">
               <img src="https://images.unsplash.com/photo-1498804103079-a6351b050096?auto=format&fit=crop&q=80&w=1200" alt="Latte art pouring" className="w-full h-full object-cover grayscale-[0.5] transition-transform duration-1000 group-hover:scale-105 group-hover:grayscale-0" referrerPolicy="no-referrer" />
+              <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/60 to-transparent flex items-end p-8">
+                <span className="text-[10px] text-zinc-400 uppercase tracking-widest font-light">The Ritual</span>
+              </div>
             </div>
  
-            <div className="col-span-4 md:col-span-4 xl:col-span-4 relative group overflow-hidden bg-zinc-900">
+            {/* Two Square-ish Images */}
+            <div className="col-span-2 md:col-span-2 xl:col-span-4 relative group overflow-hidden bg-zinc-900 border border-zinc-900 hover:border-zinc-800 transition-colors">
               <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&q=80&w=1200" alt="Coffee shop seating" className="w-full h-full object-cover grayscale-[0.5] transition-transform duration-1000 group-hover:scale-105 group-hover:grayscale-0" referrerPolicy="no-referrer" />
             </div>
+
+            <div className="col-span-2 md:col-span-2 xl:col-span-4 relative group overflow-hidden bg-zinc-900 border border-zinc-900 hover:border-zinc-800 transition-colors">
+              <img src="https://images.unsplash.com/photo-1507133750040-4c8b5f1a9903?auto=format&fit=crop&q=80&w=1200" alt="Coffee beans" className="w-full h-full object-cover grayscale-[0.5] transition-transform duration-1000 group-hover:scale-105 group-hover:grayscale-0" referrerPolicy="no-referrer" />
+            </div>
             
-            <div className="col-span-4 md:col-span-8 xl:col-span-12 h-64 md:h-80 relative group overflow-hidden mt-8">
+            {/* Atmospheric Anchor */}
+            <div className="col-span-4 md:col-span-8 xl:col-span-12 h-40 md:h-56 xl:h-72 relative group overflow-hidden mt-2 md:mt-4">
                <img src="https://images.unsplash.com/photo-1453614512568-c4024d13c247?auto=format&fit=crop&q=80&w=2000" alt="Aroma of fresh coffee" className="w-full h-full object-cover grayscale-[0.7] opacity-30 contrast-150 transition-all duration-1000 group-hover:scale-105" referrerPolicy="no-referrer" />
                <div className="absolute inset-0 flex items-center justify-center">
                  <h3 className="text-4xl md:text-6xl lg:text-8xl font-light text-white/20 uppercase tracking-[0.5em] select-none italic transition-colors group-hover:text-white/30">Atmospheric</h3>
