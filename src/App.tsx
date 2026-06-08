@@ -129,13 +129,10 @@ function Home({ openModal }: { openModal: () => void }) {
             <SectionHeading subtitle="Our Story">A Space for Connection</SectionHeading>
             <div className="space-y-8 text-zinc-400 text-base md:text-lg font-light leading-relaxed">
               <p>
-                <span className="text-white font-normal uppercase tracking-widest text-sm">Katina’s Kafé</span> is a cozy sanctuary in Kigali with a profound social mission. Renowned for its warm hospitality, exceptional coffee, and vibrant community spirit, we offer more than just the perfect cup.
+                <span className="text-white font-normal uppercase tracking-widest text-sm">Katina’s Kafé</span> is a cozy sanctuary in Kigali, known for exceptional coffee, warm hospitality, and a vibrant community spirit. We believe a café can be more than a place to enjoy a drink—it can be a place where people connect, share stories, and feel at home.
               </p>
               <p>
-                At the heart of our café is a commitment to empowerment and inclusion. We are proud to employ deaf baristas and celebrate the beauty of sign language as a bridge between people. Every interaction is an opportunity to foster understanding, connection, and awareness.
-              </p>
-              <p>
-                We invite you into a welcoming space where every cup tells a story—one of impact, inclusivity, and genuine human connection.
+                Our commitment to inclusion is at the heart of everything we do. By employing deaf baristas and embracing sign language, we create opportunities for empowerment while encouraging understanding and connection. Every cup served reflects our passion for both quality and positive social impact.
               </p>
             </div>
           </motion.div>
@@ -299,17 +296,17 @@ function Home({ openModal }: { openModal: () => void }) {
                     loading="lazy"
                   />
 
-                  <div className="absolute inset-0 z-20 p-8 flex flex-col justify-end pointer-events-none">
+                  <div className="absolute inset-0 z-20 p-4 md:p-6 lg:p-8 flex flex-col justify-end pointer-events-none">
                     <div className="transform group-hover:-translate-y-2 transition-transform duration-500">
-                      <p className="text-zinc-400 text-[10px] font-medium tracking-[0.2em] uppercase mb-2">
+                      <p className="text-zinc-400 text-[9px] md:text-[10px] font-medium tracking-[0.2em] uppercase mb-1 md:mb-2 line-clamp-1">
                         {cat.subtitle}
                       </p>
-                      <h3 className="text-2xl lg:text-3xl font-serif font-light text-white tracking-wide">
+                      <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-serif font-light text-white tracking-wide break-words hyphens-auto">
                         {cat.name}
                       </h3>
                       {cat.showLink && (
-                        <div className="flex items-center gap-2 mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
-                          <span className="text-white text-[10px] font-medium tracking-widest uppercase">VIEW MENU</span>
+                        <div className="flex items-center gap-1 md:gap-2 mt-3 md:mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                          <span className="text-white text-[9px] md:text-[10px] font-medium tracking-widest uppercase">VIEW MENU</span>
                           <span className="text-white text-xs">→</span>
                         </div>
                       )}
