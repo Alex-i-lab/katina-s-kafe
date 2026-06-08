@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Search } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 import { FULL_MENU_ITEMS } from './data';
+import { PreloadImage } from './components/PreloadMedia';
 
 export default function MenuPage() {
   const categories = [
@@ -59,7 +60,7 @@ export default function MenuPage() {
       {/* Hero Menu Banner */}
       <section className="relative h-[25rem] min-h-[400px] flex justify-center items-center overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img 
+          <PreloadImage 
             src="https://res.cloudinary.com/dcy26s9jm/image/upload/f_auto,q_auto/v1780939113/generate_an_upscaled_version_of_202606081857_hl14v9.jpg" 
             alt="Menu background" 
             className="w-full h-full object-cover opacity-50"

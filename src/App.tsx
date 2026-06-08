@@ -26,6 +26,7 @@ import ContactPage from './ContactPage';
 import OrderPage from './OrderPage';
 import { Helmet } from 'react-helmet-async';
 import { MapView } from './MapComponent';
+import { PreloadImage, PreloadVideo } from './components/PreloadMedia';
 
 const TripAdvisorIcon = ({ className }: { className?: string }) => (
   <svg 
@@ -74,7 +75,7 @@ function Home({ openModal }: { openModal: () => void }) {
           style={{ scale }}
           className="absolute inset-0 z-0"
         >
-          <img 
+          <PreloadImage 
             src="https://res.cloudinary.com/dcy26s9jm/image/upload/f_auto,q_auto/v1780938023/generate_an_upscaled_version_of_202606081900_ydjhx7.jpg" 
             alt="Atmospheric cafe interior" 
             className="w-full h-full object-cover opacity-35"
@@ -143,15 +144,9 @@ function Home({ openModal }: { openModal: () => void }) {
             transition={{ duration: 1 }}
             className="col-span-4 md:col-span-8 xl:col-span-6 xl:col-start-7 aspect-[4/5] relative overflow-hidden"
           >
-            <video 
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="w-full h-full object-cover transition-all duration-1000"
-            >
+            <PreloadVideo className="w-full h-full">
               <source src={encodeURI("https://res.cloudinary.com/dcy26s9jm/video/upload/v1780932260/We_re_putting_the_final_pieces_in_place..._and_trust_us_your_new_happy_place_just_dropped_Get_ready_for_coffee_community_and_calm_opening_soon._anpg15.mp4")} type="video/mp4" />
-            </video>
+            </PreloadVideo>
           </motion.div>
         </div>
       </section>
@@ -167,7 +162,7 @@ function Home({ openModal }: { openModal: () => void }) {
               className="col-span-4 md:col-span-4 xl:col-span-6 relative group"
             >
               <div className="absolute -inset-4 border border-zinc-900 group-hover:border-zinc-800 transition-colors duration-500 -z-10" />
-              <img 
+              <PreloadImage 
                 src="https://res.cloudinary.com/dcy26s9jm/image/upload/f_auto,q_auto/v1780932188/514832490_17851998696481998_155433204255130882_n_hqhc6k.jpg" 
                 alt="Our baristas at work" 
                 className="w-full transition-all duration-1000 shadow-2xl"
@@ -288,7 +283,7 @@ function Home({ openModal }: { openModal: () => void }) {
                 <Link to="/menu" className="group block relative w-full h-full overflow-hidden bg-zinc-900 border border-transparent hover:border-zinc-800 transition-colors duration-500">
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10 pointer-events-none" />
                   
-                  <img 
+                  <PreloadImage 
                     src={cat.img} 
                     alt={cat.name} 
                     className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-105 group-hover:opacity-100 transition-all duration-700 ease-out"
@@ -334,7 +329,7 @@ function Home({ openModal }: { openModal: () => void }) {
           <div className="grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12 gap-4 md:gap-8 xl:gap-8 auto-rows-[200px] md:auto-rows-[300px]">
             {/* Featured Tall Image */}
             <div className="col-span-4 md:col-span-4 xl:col-span-4 row-span-2 relative group overflow-hidden bg-zinc-900 shadow-2xl border border-zinc-900 hover:border-zinc-800 transition-colors">
-              <img src="https://res.cloudinary.com/dcy26s9jm/image/upload/f_auto,q_auto/v1780932191/631424221_17877106155481998_7785495124355595646_n_uhp6jn.jpg" alt="Katina's Kafé Visuals" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" referrerPolicy="no-referrer" loading="lazy" />
+              <PreloadImage src="https://res.cloudinary.com/dcy26s9jm/image/upload/f_auto,q_auto/v1780932191/631424221_17877106155481998_7785495124355595646_n_uhp6jn.jpg" alt="Katina's Kafé Visuals" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" referrerPolicy="no-referrer" loading="lazy" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-500 flex items-end p-8 md:p-10">
                 <p className="text-white text-[10px] md:text-xs uppercase tracking-[0.3em] font-light">Craftsmanship in Every Shot</p>
               </div>
@@ -342,7 +337,7 @@ function Home({ openModal }: { openModal: () => void }) {
             
             {/* Wide Image */}
             <div className="col-span-4 md:col-span-4 xl:col-span-8 row-span-1 relative group overflow-hidden bg-zinc-900 border border-zinc-900 hover:border-zinc-800 transition-colors">
-              <img src="https://res.cloudinary.com/dcy26s9jm/image/upload/f_auto,q_auto/v1780932189/631667835_17877106137481998_8193678897312387817_n_fetjbn.jpg" alt="Latte art pouring" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" referrerPolicy="no-referrer" loading="lazy" />
+              <PreloadImage src="https://res.cloudinary.com/dcy26s9jm/image/upload/f_auto,q_auto/v1780932189/631667835_17877106137481998_8193678897312387817_n_fetjbn.jpg" alt="Latte art pouring" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" referrerPolicy="no-referrer" loading="lazy" />
               <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/60 to-transparent flex items-end p-8">
                 <span className="text-[10px] text-zinc-400 uppercase tracking-widest font-light">The Ritual</span>
               </div>
@@ -350,7 +345,7 @@ function Home({ openModal }: { openModal: () => void }) {
  
             {/* Two Square-ish Images */}
             <div className="col-span-2 md:col-span-2 xl:col-span-4 relative group overflow-hidden bg-zinc-900 border border-zinc-900 hover:border-zinc-800 transition-colors">
-              <img src="https://res.cloudinary.com/dcy26s9jm/image/upload/f_auto,q_auto/v1780934388/659154369_17888598552481998_7208679190882747456_n_ddfdsm.jpg" alt="Coffee shop seating" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" referrerPolicy="no-referrer" loading="lazy" />
+              <PreloadImage src="https://res.cloudinary.com/dcy26s9jm/image/upload/f_auto,q_auto/v1780934388/659154369_17888598552481998_7208679190882747456_n_ddfdsm.jpg" alt="Coffee shop seating" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" referrerPolicy="no-referrer" loading="lazy" />
             </div>
 
             <div className="col-span-2 md:col-span-2 xl:col-span-4 relative group overflow-hidden bg-zinc-900 border border-zinc-900 hover:border-zinc-800 transition-colors flex flex-col items-center justify-center text-center p-4">
@@ -370,7 +365,7 @@ function Home({ openModal }: { openModal: () => void }) {
             
             {/* Atmospheric Anchor */}
             <div className="col-span-4 md:col-span-8 xl:col-span-12 h-40 md:h-56 xl:h-72 relative group overflow-hidden mt-2 md:mt-4">
-               <img src="https://res.cloudinary.com/dcy26s9jm/image/upload/f_auto,q_auto/v1780936641/640265745_17852749230673076_884855513009866501_n_kd5irw.jpg" alt="Aroma of fresh coffee" className="w-full h-full object-cover opacity-30 contrast-150 transition-all duration-1000 group-hover:scale-105" referrerPolicy="no-referrer" loading="lazy" />
+               <PreloadImage src="https://res.cloudinary.com/dcy26s9jm/image/upload/f_auto,q_auto/v1780936641/640265745_17852749230673076_884855513009866501_n_kd5irw.jpg" alt="Aroma of fresh coffee" className="w-full h-full object-cover opacity-30 contrast-150 transition-all duration-1000 group-hover:scale-105" referrerPolicy="no-referrer" loading="lazy" />
                <div className="absolute inset-0 flex items-center justify-center">
                  <h3 className="text-4xl md:text-6xl lg:text-8xl font-light text-white/20 uppercase tracking-[0.5em] select-none italic transition-colors group-hover:text-white/30">Atmospheric</h3>
                </div>

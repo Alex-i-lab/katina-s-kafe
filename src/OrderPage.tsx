@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { ShoppingBag, Plus, Minus, X, ArrowRight, CreditCard, CheckCircle, Loader2 } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 import { FULL_MENU_ITEMS, MenuItem } from './data';
+import { PreloadImage } from './components/PreloadMedia';
 
 export default function OrderPage() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -197,7 +198,7 @@ export default function OrderPage() {
                         >
                         {item.image && (
                          <div className="w-full h-56 overflow-hidden">
-                           <img 
+                           <PreloadImage 
                              src={item.image} 
                              alt={item.name} 
                              className="w-full h-full object-cover group-hover:scale-105 transition-all duration-1000" 
