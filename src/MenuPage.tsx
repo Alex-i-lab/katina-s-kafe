@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Search } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 import { FULL_MENU_ITEMS } from './data';
 
 export default function MenuPage() {
@@ -51,25 +52,30 @@ export default function MenuPage() {
 
   return (
     <div className="bg-black text-zinc-100 font-sans pb-32 min-h-screen">
+      <Helmet>
+        <title>Menu | Katina's Kafé Selection</title>
+        <meta name="description" content="Explore Katina's Kafé full menu featuring artisan coffee, fresh brunch, delicious tapas, and evening cocktails in Kigali." />
+      </Helmet>
       {/* Hero Menu Banner */}
       <section className="relative h-[25rem] min-h-[400px] flex justify-center items-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=2000" 
+            src="https://res.cloudinary.com/dcy26s9jm/image/upload/f_auto,q_auto/v1780939113/generate_an_upscaled_version_of_202606081857_hl14v9.jpg" 
             alt="Menu background" 
-            className="w-full h-full object-cover opacity-50 grayscale-[0.8]"
+            className="w-full h-full object-cover opacity-50"
             referrerPolicy="no-referrer"
+            loading="lazy"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/60 to-black" />
         </div>
-        <div className="relative z-10 text-center max-w-4xl px-8">
+        <div className="relative z-10 text-center max-w-4xl px-4 md:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
           >
             <p className="text-zinc-500 uppercase tracking-[0.5em] text-[11px] mb-8">Culinary Experience</p>
-            <h1 className="text-6xl md:text-8xl lg:text-9xl font-light tracking-tighter text-white mb-12">Artisan Selection.</h1>
+            <h1 className="text-6xl md:text-8xl lg:text-9xl font-light tracking-tighter text-white mb-12">Katina's Selection.</h1>
           </motion.div>
         </div>
       </section>
@@ -144,7 +150,7 @@ export default function MenuPage() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-8 md:px-16 space-y-32">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 space-y-32">
         {displayedCategories.map((category, catIdx) => {
           const items = FULL_MENU_ITEMS.filter(item => {
             const matchesCategory = item.category === category;

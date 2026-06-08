@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ShoppingBag, Plus, Minus, X, ArrowRight, CreditCard, CheckCircle, Loader2 } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 import { FULL_MENU_ITEMS, MenuItem } from './data';
 
 export default function OrderPage() {
@@ -65,7 +66,7 @@ export default function OrderPage() {
         item.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
         (item.description && item.description.toLowerCase().includes(searchQuery.toLowerCase()))
       )
-    : [];
+    : FULL_MENU_ITEMS;
 
   const addToCart = (item: MenuItem) => {
     setCart(prev => {
@@ -110,8 +111,12 @@ export default function OrderPage() {
 
   return (
     <div className="bg-black text-zinc-100 font-sans min-h-screen pt-32 pb-32">
-      <div className="max-w-7xl mx-auto px-8 md:px-16">
-        <div className="text-center mb-16 px-6">
+      <Helmet>
+        <title>Order Online | Katina's Kafé</title>
+        <meta name="description" content="Order online from Katina's Kafé. Pick up fresh coffee, brunch, and artisan food from our location in Kigali." />
+      </Helmet>
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16">
+        <div className="text-center mb-16 px-4 md:px-6">
           <motion.p 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -138,6 +143,23 @@ export default function OrderPage() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
+          {searchQuery.trim() === '' && (
+            <motion.div 
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="absolute top-full left-0 right-0 mt-6 flex flex-wrap gap-2 justify-center"
+            >
+              {['Iced Latte', 'Avocado Toast', 'Croissant', 'Espresso', 'Matcha'].map(suggestion => (
+                <button
+                  key={suggestion}
+                  onClick={() => setSearchQuery(suggestion)}
+                  className="px-4 py-2 border border-zinc-800 text-zinc-500 text-[10px] uppercase tracking-widest hover:text-white hover:border-zinc-500 transition-colors rounded-full bg-black"
+                >
+                  {suggestion}
+                </button>
+              ))}
+            </motion.div>
+          )}
         </div>
 
         {/* Menu Grid */}
@@ -157,11 +179,6 @@ export default function OrderPage() {
                    </div>
                  ))}
                </div>
-            ) : searchQuery.trim().length === 0 ? (
-               <div className="text-center py-24 border border-zinc-800 bg-zinc-900/40">
-                 <p className="text-zinc-500 font-light mb-2">What are you craving today?</p>
-                 <p className="text-zinc-600 text-sm">Use the search bar above to find items (e.g., "Latte", "Croissant")</p>
-               </div>
             ) : displayedItems.length === 0 ? (
                <div className="text-center py-24 border border-zinc-800 bg-zinc-900/40">
                  <p className="text-zinc-500 font-light">No items found matching "{searchQuery}"</p>
@@ -170,21 +187,22 @@ export default function OrderPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <AnimatePresence mode="popLayout">
                   {displayedItems.map((item, idx) => (
-                    <motion.div
-                      key={item.name}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, scale: 0.95 }}
-                      transition={{ duration: 0.4 }}
-                      className="bg-zinc-950 border border-zinc-900/50 flex flex-col group hover:border-zinc-700 transition-all duration-500 rounded-sm overflow-hidden"
-                    >
-                      {item.image && (
+                    <React.Fragment key={item.name}>
+                        <motion.div
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, scale: 0.95 }}
+                          transition={{ duration: 0.4 }}
+                          className="bg-zinc-950 border border-zinc-900/50 flex flex-col group hover:border-zinc-700 transition-all duration-500 rounded-sm overflow-hidden"
+                        >
+                        {item.image && (
                          <div className="w-full h-56 overflow-hidden">
                            <img 
                              src={item.image} 
                              alt={item.name} 
-                             className="w-full h-full object-cover grayscale-[0.4] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000" 
+                             className="w-full h-full object-cover group-hover:scale-105 transition-all duration-1000" 
                              referrerPolicy="no-referrer"
+                             loading="lazy"
                            />
                          </div>
                       )}
@@ -206,6 +224,7 @@ export default function OrderPage() {
                         </button>
                       </div>
                     </motion.div>
+                    </React.Fragment>
                   ))}
                 </AnimatePresence>
               </div>

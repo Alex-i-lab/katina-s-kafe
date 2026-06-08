@@ -24,7 +24,19 @@ import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-do
 import MenuPage from './MenuPage';
 import ContactPage from './ContactPage';
 import OrderPage from './OrderPage';
+import { Helmet } from 'react-helmet-async';
 import { MapView } from './MapComponent';
+
+const TripAdvisorIcon = ({ className }: { className?: string }) => (
+  <svg 
+    className={className} 
+    xmlns="http://www.w3.org/2000/svg" 
+    viewBox="0 0 24 24" 
+    fill="currentColor"
+  >
+    <path d="M12.006 4.295c-2.67 0-5.338.784-7.645 2.353H0l1.963 2.135a5.997 5.997 0 0 0 4.04 10.43 5.976 5.976 0 0 0 4.075-1.6L12 19.705l1.922-2.09a5.972 5.972 0 0 0 4.072 1.598 6 6 0 0 0 6-5.998 5.982 5.982 0 0 0-1.957-4.432L24 6.648h-4.35a13.573 13.573 0 0 0-7.644-2.353zM12 6.255c1.531 0 3.063.303 4.504.903C13.943 8.138 12 10.43 12 13.1c0-2.671-1.942-4.962-4.504-5.942A11.72 11.72 0 0 1 12 6.256zM6.002 9.157a4.059 4.059 0 1 1 0 8.118 4.059 4.059 0 0 1 0-8.118zm11.992.002a4.057 4.057 0 1 1 .003 8.115 4.057 4.057 0 0 1-.003-8.115zm-11.992 1.93a2.128 2.128 0 0 0 0 4.256 2.128 2.128 0 0 0 0-4.256zm11.992 0a2.128 2.128 0 0 0 0 4.256 2.128 2.128 0 0 0 0-4.256z"/>
+  </svg>
+);
 
 const SectionHeading = ({ children, subtitle }: { children: React.ReactNode, subtitle?: string }) => (
   <div className="mb-16">
@@ -48,6 +60,14 @@ function Home({ openModal }: { openModal: () => void }) {
 
   return (
     <>
+      <Helmet>
+        <title>Katina's Kafé | Artisan Coffee & Exquisite Dining in Kigali</title>
+        <meta name="description" content="Katina's Kafé is a cozy sanctuary in Kigali with a profound social mission. Renowned for its warm hospitality, exceptional coffee, and vibrant community spirit." />
+        <meta name="keywords" content="Cafe Kigali, Best Coffee Kigali, Katina's Kafe, Kigali restaurants" />
+        <meta property="og:title" content="Katina's Kafé | Artisan Coffee & Dining in Kigali" />
+        <meta property="og:description" content="A space designed for connection and atmosphere in the heart of Kigali." />
+        <meta property="og:type" content="website" />
+      </Helmet>
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <motion.div 
@@ -55,9 +75,9 @@ function Home({ openModal }: { openModal: () => void }) {
           className="absolute inset-0 z-0"
         >
           <img 
-            src="https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&q=80&w=2000" 
+            src="https://res.cloudinary.com/dcy26s9jm/image/upload/f_auto,q_auto/v1780938023/generate_an_upscaled_version_of_202606081900_ydjhx7.jpg" 
             alt="Atmospheric cafe interior" 
-            className="w-full h-full object-cover opacity-35 grayscale-[0.3]"
+            className="w-full h-full object-cover opacity-35"
             referrerPolicy="no-referrer"
           />
           <div className="absolute inset-0 bg-black/40" />
@@ -97,7 +117,7 @@ function Home({ openModal }: { openModal: () => void }) {
         </div>
 
 
-      </section>      <section id="about" className="py-24 md:py-40 px-8 md:px-16 bg-zinc-950/30">
+      </section>      <section id="about" className="py-24 md:py-40 px-6 md:px-12 lg:px-16 bg-zinc-950/30">
         <div className="max-w-7xl mx-auto grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12 gap-8 md:gap-12 xl:gap-20 items-center">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -109,10 +129,13 @@ function Home({ openModal }: { openModal: () => void }) {
             <SectionHeading subtitle="Our Story">A Space for Connection</SectionHeading>
             <div className="space-y-8 text-zinc-400 text-base md:text-lg font-light leading-relaxed">
               <p>
-                <span className="text-white font-normal uppercase tracking-widest text-sm">Katina’s Kafé</span> is a cozy sanctuary in Kigali with a profound social heartbeat. Renowned for its warm hospitality, exquisite coffee, and vibrant community spirit, we pride ourselves on more than just the perfect pour.
+                <span className="text-white font-normal uppercase tracking-widest text-sm">Katina’s Kafé</span> is a cozy sanctuary in Kigali with a profound social mission. Renowned for its warm hospitality, exceptional coffee, and vibrant community spirit, we offer more than just the perfect cup.
               </p>
               <p>
-                Our mission is rooted in empowerment; we are honored to employ deaf baristas and champion inclusivity through the beautiful language of signs. We invitation you into a space where every cup tells a story of awareness, impact, and genuine human connection.
+                At the heart of our café is a commitment to empowerment and inclusion. We are proud to employ deaf baristas and celebrate the beauty of sign language as a bridge between people. Every interaction is an opportunity to foster understanding, connection, and awareness.
+              </p>
+              <p>
+                We invite you into a welcoming space where every cup tells a story—one of impact, inclusivity, and genuine human connection.
               </p>
             </div>
           </motion.div>
@@ -123,18 +146,94 @@ function Home({ openModal }: { openModal: () => void }) {
             transition={{ duration: 1 }}
             className="col-span-4 md:col-span-8 xl:col-span-6 xl:col-start-7 aspect-[4/5] relative overflow-hidden"
           >
-            <img 
-              src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&q=80&w=1200" 
-              alt="Warm cafe seating" 
-              className="w-full h-full object-cover grayscale-[0.5] hover:grayscale-0 transition-all duration-1000"
-              referrerPolicy="no-referrer"
-            />
+            <video 
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full h-full object-cover transition-all duration-1000"
+            >
+              <source src={encodeURI("https://res.cloudinary.com/dcy26s9jm/video/upload/v1780932260/We_re_putting_the_final_pieces_in_place..._and_trust_us_your_new_happy_place_just_dropped_Get_ready_for_coffee_community_and_calm_opening_soon._anpg15.mp4")} type="video/mp4" />
+            </video>
           </motion.div>
         </div>
       </section>
 
+      <section id="impact" className="py-24 md:py-40 px-6 md:px-12 lg:px-16 bg-black">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12 gap-12 md:gap-20 items-center">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1 }}
+              className="col-span-4 md:col-span-4 xl:col-span-6 relative group"
+            >
+              <div className="absolute -inset-4 border border-zinc-900 group-hover:border-zinc-800 transition-colors duration-500 -z-10" />
+              <img 
+                src="https://res.cloudinary.com/dcy26s9jm/image/upload/f_auto,q_auto/v1780932188/514832490_17851998696481998_155433204255130882_n_hqhc6k.jpg" 
+                alt="Our baristas at work" 
+                className="w-full transition-all duration-1000 shadow-2xl"
+                referrerPolicy="no-referrer"
+                loading="lazy"
+              />
+              <div className="absolute top-8 left-8 bg-black/60 backdrop-blur-sm border border-white/10 p-4 text-[10px] uppercase tracking-widest text-white">
+                Inclusive Excellence
+              </div>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="col-span-4 md:col-span-4 xl:col-span-6"
+            >
+              <SectionHeading subtitle="Beyond the Cup">Inclusive by Design</SectionHeading>
+              <div className="space-y-8">
+                <div className="flex gap-6 group">
+                  <div className="w-12 h-12 shrink-0 border border-zinc-800 flex items-center justify-center text-zinc-600 group-hover:border-white group-hover:text-white transition-all duration-500">
+                    <MessageSquare className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h4 className="text-white text-lg font-light mb-2">Silent Connection</h4>
+                    <p className="text-zinc-500 font-light leading-relaxed">
+                      Our signature "Sign of the Day" program invites guests to learn basic sign language while ordering, bridging worlds one cup at a time.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex gap-6 group">
+                  <div className="w-12 h-12 shrink-0 border border-zinc-800 flex items-center justify-center text-zinc-600 group-hover:border-white group-hover:text-white transition-all duration-500">
+                    <Users className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h4 className="text-white text-lg font-light mb-2">Empowering Talent</h4>
+                    <p className="text-zinc-500 font-light leading-relaxed">
+                      100% of our barista team consists of talented individuals from the deaf community, trained to the highest standards of specialty coffee.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex gap-6 group">
+                  <div className="w-12 h-12 shrink-0 border border-zinc-800 flex items-center justify-center text-zinc-600 group-hover:border-white group-hover:text-white transition-all duration-500">
+                    <Send className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h4 className="text-white text-lg font-light mb-2">Kigali Community</h4>
+                    <p className="text-zinc-500 font-light leading-relaxed">
+                      We host monthly workshops celebrating sign language, artisan crafts, and the vibrant culture of our beautiful city.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* Menu Section Highlights */}
-      <section id="menu" className="py-24 md:py-40 bg-zinc-950 px-8 md:px-16">
+      <section id="menu" className="py-24 md:py-40 bg-zinc-950 px-6 md:px-12 lg:px-16">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
             <div className="max-w-xl">
@@ -151,7 +250,7 @@ function Home({ openModal }: { openModal: () => void }) {
               { 
                 name: 'Coffee & Tea', 
                 subtitle: 'AROMATIC BREWS', 
-                img: 'https://res.cloudinary.com/dul9fo9cv/image/upload/v1776855894/download_6_im6mjn.jpg', 
+                img: 'https://res.cloudinary.com/dcy26s9jm/image/upload/f_auto,q_auto/v1780935827/505432442_17850655464481998_8272981609935434953_n_weefjp.jpg', 
                 span: 'col-span-4 md:col-span-8 xl:col-span-8',
                 height: 'h-[400px] md:h-[500px]',
                 showLink: false
@@ -159,23 +258,23 @@ function Home({ openModal }: { openModal: () => void }) {
               { 
                 name: 'Brunch', 
                 subtitle: 'MORNINGS', 
-                img: 'https://res.cloudinary.com/dul9fo9cv/image/upload/v1776853092/download_5_o0htca.jpg', 
+                img: 'https://res.cloudinary.com/dcy26s9jm/image/upload/f_auto,q_auto/v1780934385/615434857_17874212637481998_8651716643306661844_n_xgksqz.jpg', 
                 span: 'col-span-2 md:col-span-4 xl:col-span-4',
                 height: 'h-[300px] md:h-[500px]',
                 showLink: false
               },
               { 
-                name: 'Cocktails', 
-                subtitle: 'EVENING', 
-                img: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&q=80&w=800', 
+                name: 'Refreshers & Mocktails', 
+                subtitle: 'CRISP & COOL', 
+                img: 'https://res.cloudinary.com/dcy26s9jm/image/upload/f_auto,q_auto/v1780935720/537492939_17858326215481998_317203841199593069_n_ar1mth.jpg', 
                 span: 'col-span-2 md:col-span-4 xl:col-span-4',
                 height: 'h-[300px] md:h-[500px]',
                 showLink: false
               },
               { 
-                name: "Katina's Tapas", 
+                name: "Katina's Specials", 
                 subtitle: 'SOCIAL PLATES', 
-                img: 'https://res.cloudinary.com/dul9fo9cv/image/upload/v1778164589/Spicy_Chicken_Fry_Recipe_Crispy_Kababs_-_Cubes_N_Juliennes_lvt13j.jpg', 
+                img: 'https://res.cloudinary.com/dcy26s9jm/image/upload/f_auto,q_auto/v1780934215/712544012_17892551031481998_8633632045359856171_n_cw0lgv.jpg', 
                 span: 'col-span-4 md:col-span-8 xl:col-span-8',
                 height: 'h-[400px] md:h-[500px]',
                 showLink: true
@@ -190,14 +289,17 @@ function Home({ openModal }: { openModal: () => void }) {
                 className={`${cat.span} ${cat.height}`}
               >
                 <Link to="/menu" className="group block relative w-full h-full overflow-hidden bg-zinc-900 border border-transparent hover:border-zinc-800 transition-colors duration-500">
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10 pointer-events-none" />
+                  
                   <img 
                     src={cat.img} 
                     alt={cat.name} 
                     className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-105 group-hover:opacity-100 transition-all duration-700 ease-out"
                     referrerPolicy="no-referrer"
+                    loading="lazy"
                   />
-                  <div className="absolute inset-0 z-20 p-8 flex flex-col justify-end">
+
+                  <div className="absolute inset-0 z-20 p-8 flex flex-col justify-end pointer-events-none">
                     <div className="transform group-hover:-translate-y-2 transition-transform duration-500">
                       <p className="text-zinc-400 text-[10px] font-medium tracking-[0.2em] uppercase mb-2">
                         {cat.subtitle}
@@ -221,7 +323,7 @@ function Home({ openModal }: { openModal: () => void }) {
       </section>
 
       {/* Ambiance Gallery */}
-      <section id="gallery" className="py-24 md:py-40 px-8 md:px-16 bg-black relative">
+      <section id="gallery" className="py-24 md:py-40 px-6 md:px-12 lg:px-16 bg-black relative">
         <div className="max-w-7xl mx-auto">
           <div className="mb-24 flex flex-col items-center text-center">
             <div className="flex items-center gap-4 mb-8 w-full max-w-sm">
@@ -235,7 +337,7 @@ function Home({ openModal }: { openModal: () => void }) {
           <div className="grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12 gap-4 md:gap-8 xl:gap-8 auto-rows-[200px] md:auto-rows-[300px]">
             {/* Featured Tall Image */}
             <div className="col-span-4 md:col-span-4 xl:col-span-4 row-span-2 relative group overflow-hidden bg-zinc-900 shadow-2xl border border-zinc-900 hover:border-zinc-800 transition-colors">
-              <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&q=80&w=1200" alt="Espresso machine" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 grayscale-[0.4] group-hover:grayscale-0" referrerPolicy="no-referrer" />
+              <img src="https://res.cloudinary.com/dcy26s9jm/image/upload/f_auto,q_auto/v1780932191/631424221_17877106155481998_7785495124355595646_n_uhp6jn.jpg" alt="Katina's Kafé Visuals" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" referrerPolicy="no-referrer" loading="lazy" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-500 flex items-end p-8 md:p-10">
                 <p className="text-white text-[10px] md:text-xs uppercase tracking-[0.3em] font-light">Craftsmanship in Every Shot</p>
               </div>
@@ -243,7 +345,7 @@ function Home({ openModal }: { openModal: () => void }) {
             
             {/* Wide Image */}
             <div className="col-span-4 md:col-span-4 xl:col-span-8 row-span-1 relative group overflow-hidden bg-zinc-900 border border-zinc-900 hover:border-zinc-800 transition-colors">
-              <img src="https://images.unsplash.com/photo-1498804103079-a6351b050096?auto=format&fit=crop&q=80&w=1200" alt="Latte art pouring" className="w-full h-full object-cover grayscale-[0.5] transition-transform duration-1000 group-hover:scale-105 group-hover:grayscale-0" referrerPolicy="no-referrer" />
+              <img src="https://res.cloudinary.com/dcy26s9jm/image/upload/f_auto,q_auto/v1780932189/631667835_17877106137481998_8193678897312387817_n_fetjbn.jpg" alt="Latte art pouring" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" referrerPolicy="no-referrer" loading="lazy" />
               <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/60 to-transparent flex items-end p-8">
                 <span className="text-[10px] text-zinc-400 uppercase tracking-widest font-light">The Ritual</span>
               </div>
@@ -251,16 +353,27 @@ function Home({ openModal }: { openModal: () => void }) {
  
             {/* Two Square-ish Images */}
             <div className="col-span-2 md:col-span-2 xl:col-span-4 relative group overflow-hidden bg-zinc-900 border border-zinc-900 hover:border-zinc-800 transition-colors">
-              <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&q=80&w=1200" alt="Coffee shop seating" className="w-full h-full object-cover grayscale-[0.5] transition-transform duration-1000 group-hover:scale-105 group-hover:grayscale-0" referrerPolicy="no-referrer" />
+              <img src="https://res.cloudinary.com/dcy26s9jm/image/upload/f_auto,q_auto/v1780934388/659154369_17888598552481998_7208679190882747456_n_ddfdsm.jpg" alt="Coffee shop seating" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" referrerPolicy="no-referrer" loading="lazy" />
             </div>
 
-            <div className="col-span-2 md:col-span-2 xl:col-span-4 relative group overflow-hidden bg-zinc-900 border border-zinc-900 hover:border-zinc-800 transition-colors">
-              <img src="https://images.unsplash.com/photo-1507133750040-4c8b5f1a9903?auto=format&fit=crop&q=80&w=1200" alt="Coffee beans" className="w-full h-full object-cover grayscale-[0.5] transition-transform duration-1000 group-hover:scale-105 group-hover:grayscale-0" referrerPolicy="no-referrer" />
+            <div className="col-span-2 md:col-span-2 xl:col-span-4 relative group overflow-hidden bg-zinc-900 border border-zinc-900 hover:border-zinc-800 transition-colors flex flex-col items-center justify-center text-center p-4">
+              <div className="scale-[0.65] sm:scale-75 md:scale-90 lg:scale-100 origin-center flex flex-col items-center">
+                <h3 className="text-3xl lg:text-4xl font-black text-white mb-4 leading-[1.1] tracking-tight">
+                  #MY<br />HAND<br />TALKS
+                </h3>
+                <p className="text-[10px] lg:text-xs leading-relaxed mb-4 max-w-[250px] lg:max-w-xs text-zinc-300">
+                  Our Café was born out of the vision to provide great food and amazing service while promoting the training and employment of Deaf people in the hospitality industry.
+                </p>
+                <p className="text-[10px] lg:text-xs leading-relaxed mb-6 max-w-[250px] lg:max-w-xs text-zinc-300">
+                  Murakaza Neza! Learn a few hand signs, Relax, have fun and Enjoy some delicious food.
+                </p>
+                <p className="text-base lg:text-lg tracking-widest font-light text-white">Katina's</p>
+              </div>
             </div>
             
             {/* Atmospheric Anchor */}
             <div className="col-span-4 md:col-span-8 xl:col-span-12 h-40 md:h-56 xl:h-72 relative group overflow-hidden mt-2 md:mt-4">
-               <img src="https://images.unsplash.com/photo-1453614512568-c4024d13c247?auto=format&fit=crop&q=80&w=2000" alt="Aroma of fresh coffee" className="w-full h-full object-cover grayscale-[0.7] opacity-30 contrast-150 transition-all duration-1000 group-hover:scale-105" referrerPolicy="no-referrer" />
+               <img src="https://res.cloudinary.com/dcy26s9jm/image/upload/f_auto,q_auto/v1780936641/640265745_17852749230673076_884855513009866501_n_kd5irw.jpg" alt="Aroma of fresh coffee" className="w-full h-full object-cover opacity-30 contrast-150 transition-all duration-1000 group-hover:scale-105" referrerPolicy="no-referrer" loading="lazy" />
                <div className="absolute inset-0 flex items-center justify-center">
                  <h3 className="text-4xl md:text-6xl lg:text-8xl font-light text-white/20 uppercase tracking-[0.5em] select-none italic transition-colors group-hover:text-white/30">Atmospheric</h3>
                </div>
@@ -285,7 +398,7 @@ function Home({ openModal }: { openModal: () => void }) {
       </section>
 
       {/* Feedback Section */}
-      <section id="feedback" className="py-24 md:py-40 px-8 md:px-16 border-t border-zinc-900 bg-black">
+      <section id="feedback" className="py-24 md:py-40 px-6 md:px-12 lg:px-16 border-t border-zinc-900 bg-black">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12 gap-12 md:gap-16 lg:gap-24">
             <motion.div 
@@ -413,7 +526,7 @@ function Home({ openModal }: { openModal: () => void }) {
       </section>
 
       {/* Feedback Section */}
-      <section id="contact" className="py-24 md:py-32 px-8 md:px-16 border-t border-zinc-900 overflow-hidden">
+      <section id="contact" className="py-24 md:py-32 px-6 md:px-12 lg:px-16 border-t border-zinc-900 overflow-hidden">
         <div className="max-w-7xl mx-auto grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12 gap-4 md:gap-6 xl:gap-8 items-center">
           
           {/* Map Side */}
@@ -529,9 +642,10 @@ function Home({ openModal }: { openModal: () => void }) {
                 </div>
                 <div className="space-y-6">
                   <div className="flex gap-4">
-                    <Instagram className="w-5 h-5 text-zinc-500 hover:text-white cursor-pointer transition-colors" />
-                    <Facebook className="w-5 h-5 text-zinc-500 hover:text-white cursor-pointer transition-colors" />
-                    <Twitter className="w-5 h-5 text-zinc-500 hover:text-white cursor-pointer transition-colors" />
+                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"><Instagram className="w-5 h-5 text-zinc-500 hover:text-white cursor-pointer transition-colors" /></a>
+                    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"><Facebook className="w-5 h-5 text-zinc-500 hover:text-white cursor-pointer transition-colors" /></a>
+                    <a href="https://twitter.com" target="_blank" rel="noopener noreferrer"><Twitter className="w-5 h-5 text-zinc-500 hover:text-white cursor-pointer transition-colors" /></a>
+                    <a href="https://tripadvisor.com" target="_blank" rel="noopener noreferrer"><TripAdvisorIcon className="w-5 h-5 text-zinc-500 hover:text-white cursor-pointer transition-colors" /></a>
                   </div>
                   <div className="flex flex-col gap-4">
                     <Link to="/contact" className="inline-block text-[10px] uppercase tracking-widest text-zinc-400 border border-zinc-800 hover:border-white hover:text-white px-6 py-4 transition-colors text-center w-full sm:w-auto">
@@ -598,7 +712,7 @@ function AppLayout() {
       >
         <Link to="/" className="flex items-center gap-2">
           <img 
-            src="https://res.cloudinary.com/dul9fo9cv/image/upload/v1778161434/katina_kafe_oqrqmj.png" 
+            src="https://res.cloudinary.com/dul9fo9cv/image/upload/f_auto,q_auto/v1778161434/katina_kafe_oqrqmj.png" 
             alt="Katina's Kafé Logo" 
             className="w-10 h-10 object-contain" 
             referrerPolicy="no-referrer"
@@ -773,23 +887,27 @@ function AppLayout() {
       </AnimatePresence>
 
       {/* Footer */}
-      <footer className="bg-zinc-950 border-t border-zinc-900/50 pt-24 pb-12 px-8 md:px-16">
+      <footer className="bg-zinc-950 border-t border-zinc-900/50 pt-24 pb-12 px-6 md:px-12 lg:px-16">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-12 gap-16 mb-24">
             <div className="md:col-span-4 lg:col-span-5">
               <Link to="/" className="flex items-center gap-3 mb-8">
-                <div className="w-8 h-8 rounded-full border border-white flex items-center justify-center">
-                  <span className="text-white text-[10px] font-medium leading-none">K</span>
-                </div>
+                <img 
+                  src="https://res.cloudinary.com/dul9fo9cv/image/upload/f_auto,q_auto/v1778161434/katina_kafe_oqrqmj.png" 
+                  alt="Katina's Kafé Logo" 
+                  className="w-10 h-10 object-contain" 
+                  referrerPolicy="no-referrer"
+                />
                 <span className="text-white font-light tracking-[0.3em] uppercase text-xs">Katina's Kafé</span>
               </Link>
               <p className="text-zinc-500 font-light text-base leading-relaxed max-w-sm mb-12">
                 Empowering the community through the language of signs and the ritual of coffee. Kigali's finest social sanctuary.
               </p>
               <div className="flex gap-6">
-                <Instagram className="w-5 h-5 text-zinc-600 hover:text-white transition-colors cursor-pointer" />
-                <Facebook className="w-5 h-5 text-zinc-600 hover:text-white transition-colors cursor-pointer" />
-                <Twitter className="w-5 h-5 text-zinc-600 hover:text-white transition-colors cursor-pointer" />
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"><Instagram className="w-5 h-5 text-zinc-600 hover:text-white transition-colors cursor-pointer" /></a>
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"><Facebook className="w-5 h-5 text-zinc-600 hover:text-white transition-colors cursor-pointer" /></a>
+                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer"><Twitter className="w-5 h-5 text-zinc-600 hover:text-white transition-colors cursor-pointer" /></a>
+                <a href="https://tripadvisor.com" target="_blank" rel="noopener noreferrer"><TripAdvisorIcon className="w-5 h-5 text-zinc-600 hover:text-white transition-colors cursor-pointer" /></a>
               </div>
             </div>
 
