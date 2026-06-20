@@ -23,7 +23,6 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
 import MenuPage from './MenuPage';
 import ContactPage from './ContactPage';
-import OrderPage from './OrderPage';
 import { Helmet } from 'react-helmet-async';
 import { MapView } from './MapComponent';
 import { PreloadImage, PreloadVideo } from './components/PreloadMedia';
@@ -39,9 +38,21 @@ const TripAdvisorIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-const SectionHeading = ({ children, subtitle }: { children: React.ReactNode, subtitle?: string }) => (
-  <div className="mb-16">
-    {subtitle && <p className="text-zinc-600 uppercase tracking-[0.4em] text-[11px] mb-4">{subtitle}</p>}
+const SectionHeading = ({ children, subtitle, step }: { children: React.ReactNode, subtitle?: string, step?: string }) => (
+  <div className="mb-16 select-none relative">
+    <div className="flex items-center gap-4 mb-4">
+      {step && (
+        <span className="font-mono text-[9px] text-zinc-500 tracking-wider bg-zinc-950 px-2 py-0.5 border border-zinc-900 rounded-sm">
+          {step}
+        </span>
+      )}
+      {subtitle && (
+        <p className="text-zinc-500 uppercase tracking-[0.4em] text-[10.5px] font-semibold">
+          {subtitle}
+        </p>
+      )}
+      <div className="h-[1px] bg-gradient-to-r from-zinc-800 to-transparent flex-grow opacity-30" />
+    </div>
     <h2 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-tight text-white leading-tight">{children}</h2>
   </div>
 );
@@ -85,6 +96,29 @@ function Home({ openModal }: { openModal: () => void }) {
           <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black" />
         </motion.div>
 
+        {/* Subtle Corner Ornaments for Swiss Editorial Vibe */}
+        <div className="absolute right-8 md:right-12 bottom-12 hidden lg:flex flex-col items-end gap-1.5 select-none pointer-events-none z-10 text-[9px] text-zinc-500 uppercase tracking-[0.4em] font-mono leading-none">
+          <span>KIGALI, RWANDA</span>
+          <span className="opacity-60 font-light font-mono">1° 57' 01" S, 30° 03' 40" E</span>
+        </div>
+
+        <div className="absolute left-8 md:left-12 bottom-12 hidden lg:flex flex-col items-start gap-1.5 select-none pointer-events-none z-10 text-[9px] text-zinc-500 uppercase tracking-[0.4em] font-mono leading-none">
+          <span>EST. 2024</span>
+          <span className="opacity-60 font-light font-mono">HAND TALKS — ARTISAN SELECTION</span>
+        </div>
+
+        {/* Elegant Animated Scroll Down Indicator Line */}
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 hidden md:flex flex-col items-center gap-3 opacity-60">
+          <span className="text-[9px] text-zinc-500 uppercase tracking-[0.3em] font-mono">Scroll</span>
+          <div className="w-[1px] h-12 bg-gradient-to-b from-zinc-500 via-zinc-800 to-transparent relative overflow-hidden">
+            <motion.div 
+              animate={{ y: [0, 48, 0] }}
+              transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
+              className="absolute top-0 left-0 right-0 h-4 bg-white"
+            />
+          </div>
+        </div>
+
         <div className="relative z-10 text-center px-6 max-w-4xl mx-auto pt-24 md:pt-32">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -99,13 +133,13 @@ function Home({ openModal }: { openModal: () => void }) {
               From morning coffee to evening cocktails — a space designed for connection and atmosphere.
             </p>
             <div className="flex flex-col md:flex-row items-center justify-center gap-6">
-              <Link 
+              <button 
                 id="cta_hero_primary"
-                to="/order"
-                className="w-full md:w-auto px-10 py-4 bg-white text-black font-medium text-sm lg:text-base uppercase tracking-widest hover:bg-zinc-200 transition-colors text-center"
+                onClick={openModal}
+                className="w-full md:w-auto px-10 py-4 bg-white text-black font-medium text-sm lg:text-base uppercase tracking-widest hover:bg-zinc-200 transition-colors text-center cursor-pointer"
               >
-                Order Ahead
-              </Link>
+                Reserve a Table
+              </button>
               <Link 
                 id="cta_hero_secondary"
                 to="/menu"
@@ -127,7 +161,7 @@ function Home({ openModal }: { openModal: () => void }) {
             transition={{ duration: 0.8 }}
             className="col-span-4 md:col-span-8 xl:col-span-6"
           >
-            <SectionHeading subtitle="Our Story">A Space for Connection</SectionHeading>
+            <SectionHeading subtitle="Our Story" step="01">A Space for Connection</SectionHeading>
             <div className="space-y-8 text-zinc-400 text-base md:text-lg font-light leading-relaxed">
               <p>
                 <span className="text-white font-normal uppercase tracking-widest text-sm">Katina’s Kafé</span> is a cozy sanctuary in Kigali, known for exceptional coffee, warm hospitality, and a vibrant community spirit. We believe a café can be more than a place to enjoy a drink—it can be a place where people connect, share stories, and feel at home.
@@ -181,7 +215,7 @@ function Home({ openModal }: { openModal: () => void }) {
               transition={{ duration: 0.8 }}
               className="col-span-4 md:col-span-4 xl:col-span-6"
             >
-              <SectionHeading subtitle="Beyond the Cup">Inclusive by Design</SectionHeading>
+              <SectionHeading subtitle="Beyond the Cup" step="02">Inclusive by Design</SectionHeading>
               <div className="space-y-8">
                 <div className="flex gap-6 group">
                   <div className="w-12 h-12 shrink-0 border border-zinc-800 flex items-center justify-center text-zinc-600 group-hover:border-white group-hover:text-white transition-all duration-500">
@@ -323,7 +357,7 @@ function Home({ openModal }: { openModal: () => void }) {
               <div className="w-1.5 h-1.5 rotate-45 border border-zinc-700 bg-zinc-900"></div>
               <div className="h-px bg-zinc-800 flex-1"></div>
             </div>
-            <SectionHeading subtitle="Ambiance">The Visuals</SectionHeading>
+            <SectionHeading subtitle="Ambiance" step="03">The Visuals</SectionHeading>
           </div>
           
           <div className="grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12 gap-4 md:gap-8 xl:gap-8 auto-rows-[200px] md:auto-rows-[300px]">
@@ -400,8 +434,7 @@ function Home({ openModal }: { openModal: () => void }) {
               transition={{ duration: 0.8 }}
               className="col-span-4 md:col-span-8 xl:col-span-5"
             >
-              <p className="text-zinc-500 uppercase tracking-widest text-[11px] mb-4">Feedback</p>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-light text-white mb-8 tracking-tight leading-tight">Share Your Experience</h2>
+              <SectionHeading subtitle="Feedback" step="04">Share Your Experience</SectionHeading>
               <p className="text-zinc-400 font-light leading-relaxed text-base md:text-lg mb-12">
                 Your thoughts matter to us. Whether you had a wonderful dinner or have suggestions on how we can improve, we'd love to hear it.
               </p>
@@ -541,7 +574,7 @@ function Home({ openModal }: { openModal: () => void }) {
             className="col-span-4 md:col-span-8 xl:col-span-5 xl:col-start-1 lg:order-1 order-1 space-y-16"
           >
             <div>
-              <SectionHeading subtitle="Visit Us">Come Say Hello</SectionHeading>
+              <SectionHeading subtitle="Visit Us" step="05">Come Say Hello</SectionHeading>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-12">
@@ -717,7 +750,6 @@ function AppLayout() {
           <Link to="/menu" className="hover:text-white transition-colors">Menu</Link>
           <Link to="/#gallery" className="hover:text-white transition-colors">Gallery</Link>
           <Link to="/contact" className="hover:text-white transition-colors">Contact</Link>
-          <Link to="/order" className="hover:text-white transition-colors">Order Online</Link>
         </div>
 
         <div className="flex items-center gap-4">
@@ -753,7 +785,6 @@ function AppLayout() {
               <Link to="/menu" className="hover:text-white transition-colors text-center pb-4 border-b border-zinc-900" onClick={() => setIsMobileMenuOpen(false)}>Menu</Link>
               <Link to="/#gallery" className="hover:text-white transition-colors text-center pb-4 border-b border-zinc-900" onClick={() => setIsMobileMenuOpen(false)}>Gallery</Link>
               <Link to="/contact" className="hover:text-white transition-colors text-center pb-4 border-b border-zinc-900" onClick={() => setIsMobileMenuOpen(false)}>Contact</Link>
-              <Link to="/order" className="hover:text-white transition-colors text-center pb-4 border-b border-zinc-900" onClick={() => setIsMobileMenuOpen(false)}>Order Online</Link>
             </div>
             
             <button 
@@ -770,7 +801,6 @@ function AppLayout() {
         <Route path="/" element={<Home openModal={() => setIsModalOpen(true)} />} />
         <Route path="/menu" element={<MenuPage />} />
         <Route path="/contact" element={<ContactPage />} />
-        <Route path="/order" element={<OrderPage />} />
       </Routes>
 
       {/* Booking Modal */}
@@ -907,7 +937,6 @@ function AppLayout() {
                <p className="text-[11px] uppercase tracking-[0.3em] text-zinc-400 mb-8 font-medium">Explore</p>
                <ul className="space-y-4">
                  <li><Link to="/menu" className="text-zinc-500 hover:text-white text-[13px] transition-colors font-light">The Menu</Link></li>
-                 <li><Link to="/order" className="text-zinc-500 hover:text-white text-[13px] transition-colors font-light">Pre-Order</Link></li>
                  <li><Link to="/contact" className="text-zinc-500 hover:text-white text-[13px] transition-colors font-light">Location</Link></li>
                  <li><button onClick={() => setIsModalOpen(true)} className="text-zinc-500 hover:text-white text-[13px] transition-colors font-light text-left">Reserve</button></li>
                </ul>

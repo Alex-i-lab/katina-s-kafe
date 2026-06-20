@@ -1,15 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import { Play, Pause } from 'lucide-react';
 
-export const PreloadVideo = ({ src, className, autoPlay = true, loop = true, muted = true, playsInline = true, children }: { src?: string, className?: string, autoPlay?: boolean, loop?: boolean, muted?: boolean, playsInline?: boolean, children?: React.ReactNode }) => {
+export const PreloadVideo = ({ src, className, autoPlay = false, loop = true, muted = true, playsInline = true, children }: { src?: string, className?: string, autoPlay?: boolean, loop?: boolean, muted?: boolean, playsInline?: boolean, children?: React.ReactNode }) => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(autoPlay);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const togglePlay = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (!videoRef.current) return;
+    if (isPlaying) {
+      videoRef.current.pause();
+      setIsPlaying(false);
+    } else {
+      videoRef.current.play().then(() => {
+        setIsPlaying(true);
+      }).catch(err => {
+        console.error("Video playback failed:", err);
+      });
+    }
+  };
 
   return (
-    <div className={`relative ${className} bg-zinc-900 overflow-hidden`}>
+    <div 
+      className={`relative ${className} bg-zinc-900 overflow-hidden group cursor-pointer`}
+      onClick={togglePlay}
+    >
       {!isLoaded && (
         <div className="absolute inset-0 z-10 flex items-center justify-center bg-zinc-900 animate-pulse">
         </div>
       )}
       <video
+        ref={videoRef}
         src={src}
         autoPlay={autoPlay}
         loop={loop}
@@ -20,6 +42,19 @@ export const PreloadVideo = ({ src, className, autoPlay = true, loop = true, mut
       >
         {children}
       </video>
+
+      {/* Aesthetic Play/Pause Glassmorphism Controller */}
+      {isLoaded && (
+        <div className={`absolute inset-0 flex items-center justify-center bg-black/30 transition-opacity duration-500 ${isPlaying ? 'opacity-0 lg:group-hover:opacity-100' : 'opacity-100 backdrop-blur-[2px]'}`}>
+          <div className="w-16 h-16 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-xl transform scale-100 hover:scale-110 active:scale-95 transition-all duration-350">
+            {isPlaying ? (
+              <Pause className="w-6 h-6 fill-white stroke-white" />
+            ) : (
+              <Play className="w-6 h-6 fill-white stroke-white ml-1" />
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
