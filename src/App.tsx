@@ -96,29 +96,6 @@ function Home({ openModal }: { openModal: () => void }) {
           <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black" />
         </motion.div>
 
-        {/* Subtle Corner Ornaments for Swiss Editorial Vibe */}
-        <div className="absolute right-8 md:right-12 bottom-12 hidden lg:flex flex-col items-end gap-1.5 select-none pointer-events-none z-10 text-[9px] text-zinc-500 uppercase tracking-[0.4em] font-mono leading-none">
-          <span>KIGALI, RWANDA</span>
-          <span className="opacity-60 font-light font-mono">1° 57' 01" S, 30° 03' 40" E</span>
-        </div>
-
-        <div className="absolute left-8 md:left-12 bottom-12 hidden lg:flex flex-col items-start gap-1.5 select-none pointer-events-none z-10 text-[9px] text-zinc-500 uppercase tracking-[0.4em] font-mono leading-none">
-          <span>EST. 2024</span>
-          <span className="opacity-60 font-light font-mono">HAND TALKS — ARTISAN SELECTION</span>
-        </div>
-
-        {/* Elegant Animated Scroll Down Indicator Line */}
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 hidden md:flex flex-col items-center gap-3 opacity-60">
-          <span className="text-[9px] text-zinc-500 uppercase tracking-[0.3em] font-mono">Scroll</span>
-          <div className="w-[1px] h-12 bg-gradient-to-b from-zinc-500 via-zinc-800 to-transparent relative overflow-hidden">
-            <motion.div 
-              animate={{ y: [0, 48, 0] }}
-              transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
-              className="absolute top-0 left-0 right-0 h-4 bg-white"
-            />
-          </div>
-        </div>
-
         <div className="relative z-10 text-center px-6 max-w-4xl mx-auto pt-24 md:pt-32">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -178,9 +155,11 @@ function Home({ openModal }: { openModal: () => void }) {
             transition={{ duration: 1 }}
             className="col-span-4 md:col-span-8 xl:col-span-6 xl:col-start-7 aspect-[4/5] relative overflow-hidden"
           >
-            <PreloadVideo className="w-full h-full">
-              <source src={encodeURI("https://res.cloudinary.com/dcy26s9jm/video/upload/v1780932260/We_re_putting_the_final_pieces_in_place..._and_trust_us_your_new_happy_place_just_dropped_Get_ready_for_coffee_community_and_calm_opening_soon._anpg15.mp4")} type="video/mp4" />
-            </PreloadVideo>
+            <PreloadVideo 
+              src="https://res.cloudinary.com/dcy26s9jm/video/upload/v1780932260/We_re_putting_the_final_pieces_in_place..._and_trust_us_your_new_happy_place_just_dropped_Get_ready_for_coffee_community_and_calm_opening_soon._anpg15.mp4#t=0.1"
+              poster="https://res.cloudinary.com/dcy26s9jm/video/upload/v1780932260/We_re_putting_the_final_pieces_in_place..._and_trust_us_your_new_happy_place_just_dropped_Get_ready_for_coffee_community_and_calm_opening_soon._anpg15.jpg"
+              className="w-full h-full"
+            />
           </motion.div>
         </div>
       </section>

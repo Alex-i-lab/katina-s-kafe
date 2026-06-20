@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { Play, Pause } from 'lucide-react';
 
-export const PreloadVideo = ({ src, className, autoPlay = false, loop = true, muted = true, playsInline = true, children }: { src?: string, className?: string, autoPlay?: boolean, loop?: boolean, muted?: boolean, playsInline?: boolean, children?: React.ReactNode }) => {
+export const PreloadVideo = ({ src, className, autoPlay = false, loop = true, muted = true, playsInline = true, poster, children }: { src?: string, className?: string, autoPlay?: boolean, loop?: boolean, muted?: boolean, playsInline?: boolean, poster?: string, children?: React.ReactNode }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isPlaying, setIsPlaying] = useState(autoPlay);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -33,11 +33,14 @@ export const PreloadVideo = ({ src, className, autoPlay = false, loop = true, mu
       <video
         ref={videoRef}
         src={src}
+        preload="auto"
+        poster={poster}
         autoPlay={autoPlay}
         loop={loop}
         muted={muted}
         playsInline={playsInline}
         onLoadedData={() => setIsLoaded(true)}
+        onLoadedMetadata={() => setIsLoaded(true)}
         className={`w-full h-full object-cover transition-opacity duration-1000 ${isLoaded ? '' : 'opacity-0'}`}
       >
         {children}
