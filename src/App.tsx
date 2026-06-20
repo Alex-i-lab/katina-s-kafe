@@ -17,7 +17,9 @@ import {
   Users,
   MessageSquare,
   Send,
-  Menu
+  Menu,
+  Plus,
+  Coffee
 } from 'lucide-react';
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
@@ -89,11 +91,11 @@ function Home({ openModal }: { openModal: () => void }) {
           <PreloadImage 
             src="https://res.cloudinary.com/dcy26s9jm/image/upload/f_auto,q_auto/v1780938023/generate_an_upscaled_version_of_202606081900_ydjhx7.jpg" 
             alt="Atmospheric cafe interior" 
-            className="w-full h-full object-cover opacity-35"
+            className="w-full h-full object-cover opacity-50"
             referrerPolicy="no-referrer"
           />
-          <div className="absolute inset-0 bg-black/40" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black" />
+          <div className="absolute inset-0 bg-black/25" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
         </motion.div>
 
         <div className="relative z-10 text-center px-6 max-w-4xl mx-auto pt-24 md:pt-32">
@@ -113,14 +115,14 @@ function Home({ openModal }: { openModal: () => void }) {
               <button 
                 id="cta_hero_primary"
                 onClick={openModal}
-                className="w-full md:w-auto px-10 py-4 bg-white text-black font-medium text-sm lg:text-base uppercase tracking-widest hover:bg-zinc-200 transition-colors text-center cursor-pointer"
+                className="w-full md:w-auto px-12 lg:px-14 py-4 bg-white text-black font-medium text-[13px] lg:text-sm uppercase tracking-widest hover:bg-zinc-200 transition-colors text-center cursor-pointer"
               >
                 Reserve a Table
               </button>
               <Link 
                 id="cta_hero_secondary"
                 to="/menu"
-                className="w-full md:w-auto px-10 py-4 border border-zinc-500 text-white font-medium text-sm lg:text-base uppercase tracking-widest hover:border-white hover:bg-white/5 transition-all text-center"
+                className="w-full md:w-auto px-10 py-4 border border-zinc-500 text-white font-medium text-[13px] lg:text-sm uppercase tracking-widest hover:border-white hover:bg-white/5 transition-all text-center"
               >
                 View Menu
               </Link>
@@ -294,7 +296,7 @@ function Home({ openModal }: { openModal: () => void }) {
                 className={`${cat.span} ${cat.height}`}
               >
                 <Link to="/menu" className="group block relative w-full h-full overflow-hidden bg-zinc-900 border border-transparent hover:border-zinc-800 transition-colors duration-500">
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10 pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10 pointer-events-none opacity-100 group-hover:opacity-75 transition-opacity duration-700" />
                   
                   <PreloadImage 
                     src={cat.img} 
@@ -341,24 +343,39 @@ function Home({ openModal }: { openModal: () => void }) {
           
           <div className="grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12 gap-4 md:gap-8 xl:gap-8 auto-rows-[200px] md:auto-rows-[300px]">
             {/* Featured Tall Image */}
-            <div className="col-span-4 md:col-span-4 xl:col-span-4 row-span-2 relative group overflow-hidden bg-zinc-900 shadow-2xl border border-zinc-900 hover:border-zinc-800 transition-colors">
+            <div className="col-span-4 md:col-span-4 xl:col-span-4 row-span-2 relative group overflow-hidden bg-zinc-900 shadow-2xl border border-zinc-900 hover:border-zinc-800 transition-colors cursor-pointer">
               <PreloadImage src="https://res.cloudinary.com/dcy26s9jm/image/upload/f_auto,q_auto/v1780932191/631424221_17877106155481998_7785495124355595646_n_uhp6jn.jpg" alt="Katina's Kafé Visuals" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" referrerPolicy="no-referrer" loading="lazy" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-500 flex items-end p-8 md:p-10">
-                <p className="text-white text-[10px] md:text-xs uppercase tracking-[0.3em] font-light">Craftsmanship in Every Shot</p>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/30 opacity-60 group-hover:opacity-90 transition-opacity duration-500 flex flex-col justify-between items-center p-8 md:p-10 pointer-events-none">
+                <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 translate-y-4 group-hover:translate-y-0 mt-auto mb-auto">
+                  <div className="w-12 h-12 rounded-full border border-white/30 bg-black/40 backdrop-blur-sm flex items-center justify-center text-white mx-auto">
+                    <Plus className="w-5 h-5 font-light" />
+                  </div>
+                </div>
+                <p className="text-white text-[10px] md:text-xs uppercase tracking-[0.3em] font-light mt-auto">Craftsmanship in Every Shot</p>
               </div>
             </div>
             
             {/* Wide Image */}
-            <div className="col-span-4 md:col-span-4 xl:col-span-8 row-span-1 relative group overflow-hidden bg-zinc-900 border border-zinc-900 hover:border-zinc-800 transition-colors">
+            <div className="col-span-4 md:col-span-4 xl:col-span-8 row-span-1 relative group overflow-hidden bg-zinc-900 border border-zinc-900 hover:border-zinc-800 transition-colors cursor-pointer">
               <PreloadImage src="https://res.cloudinary.com/dcy26s9jm/image/upload/f_auto,q_auto/v1780932189/631667835_17877106137481998_8193678897312387817_n_fetjbn.jpg" alt="Latte art pouring" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" referrerPolicy="no-referrer" loading="lazy" />
-              <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/60 to-transparent flex items-end p-8">
-                <span className="text-[10px] text-zinc-400 uppercase tracking-widest font-light">The Ritual</span>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-black/30 opacity-80 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-between p-8 pointer-events-none">
+                <div className="opacity-0 group-hover:opacity-100 transition-all duration-500 ml-auto translate-x-4 group-hover:translate-x-0">
+                  <div className="w-10 h-10 rounded-full border border-white/30 bg-black/40 backdrop-blur-sm flex items-center justify-center text-white">
+                    <Plus className="w-4 h-4 font-light" />
+                  </div>
+                </div>
+                <span className="text-[10px] text-zinc-400 uppercase tracking-widest font-light mt-auto">The Ritual</span>
               </div>
             </div>
  
             {/* Two Square-ish Images */}
-            <div className="col-span-2 md:col-span-2 xl:col-span-4 relative group overflow-hidden bg-zinc-900 border border-zinc-900 hover:border-zinc-800 transition-colors">
+            <div className="col-span-2 md:col-span-2 xl:col-span-4 relative group overflow-hidden bg-zinc-900 border border-zinc-900 hover:border-zinc-800 transition-colors cursor-pointer">
               <PreloadImage src="https://res.cloudinary.com/dcy26s9jm/image/upload/f_auto,q_auto/v1780934388/659154369_17888598552481998_7208679190882747456_n_ddfdsm.jpg" alt="Coffee shop seating" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" referrerPolicy="no-referrer" loading="lazy" />
+              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center pointer-events-none">
+                 <div className="w-10 h-10 rounded-full border border-white/30 bg-black/40 backdrop-blur-sm flex items-center justify-center text-white scale-75 group-hover:scale-100 transition-all duration-500">
+                    <Plus className="w-4 h-4 font-light" />
+                  </div>
+              </div>
             </div>
 
             <div className="col-span-2 md:col-span-2 xl:col-span-4 relative group overflow-hidden bg-zinc-900 border border-zinc-900 hover:border-zinc-800 transition-colors flex flex-col items-center justify-center text-center p-4">
@@ -389,8 +406,12 @@ function Home({ openModal }: { openModal: () => void }) {
 
       {/* Testimonials */}
       <section className="py-24 bg-zinc-950 px-6">
-        <div className="max-w-4xl mx-auto text-center">
-          <Star className="w-8 h-8 text-white mx-auto mb-10 opacity-30" />
+        <div className="max-w-4xl mx-auto text-center relative">
+          <div className="flex items-center justify-center gap-4 mb-10 opacity-60">
+             <div className="w-12 h-px bg-gradient-to-r from-transparent to-zinc-600"></div>
+             <Coffee className="w-5 h-5 text-zinc-400" strokeWidth={1.5} />
+             <div className="w-12 h-px bg-gradient-to-l from-transparent to-zinc-600"></div>
+          </div>
           <div className="relative">
             <p className="text-2xl md:text-3xl font-light italic text-white leading-relaxed mb-8">
               “The best memories are made around the table.”
@@ -724,7 +745,7 @@ function AppLayout() {
           <span className="hidden lg:inline-block text-xl font-light tracking-[0.2em] uppercase">Katina's Kafé</span>
         </Link>
         
-        <div className="hidden md:flex items-center gap-8 text-xs uppercase tracking-widest font-medium">
+        <div className="hidden md:flex items-center gap-8 text-[14px] lg:text-[15px] uppercase tracking-widest font-medium">
           <Link to="/#about" className="hover:text-white transition-colors">About</Link>
           <Link to="/menu" className="hover:text-white transition-colors">Menu</Link>
           <Link to="/#gallery" className="hover:text-white transition-colors">Gallery</Link>
@@ -759,11 +780,11 @@ function AppLayout() {
             transition={{ duration: 0.2 }}
             className="fixed inset-0 z-40 bg-zinc-950 pt-24 px-8 pb-8 flex flex-col md:hidden overflow-y-auto"
           >
-            <div className="flex flex-col gap-8 text-sm uppercase tracking-widest font-medium mt-8 text-zinc-400">
-              <Link to="/#about" className="hover:text-white transition-colors text-center pb-4 border-b border-zinc-900" onClick={() => setIsMobileMenuOpen(false)}>About</Link>
-              <Link to="/menu" className="hover:text-white transition-colors text-center pb-4 border-b border-zinc-900" onClick={() => setIsMobileMenuOpen(false)}>Menu</Link>
-              <Link to="/#gallery" className="hover:text-white transition-colors text-center pb-4 border-b border-zinc-900" onClick={() => setIsMobileMenuOpen(false)}>Gallery</Link>
-              <Link to="/contact" className="hover:text-white transition-colors text-center pb-4 border-b border-zinc-900" onClick={() => setIsMobileMenuOpen(false)}>Contact</Link>
+            <div className="flex flex-col gap-4 text-[13px] uppercase tracking-widest font-medium mt-8 text-zinc-400">
+              <Link to="/#about" className="hover:text-white transition-colors text-center py-5 border-b border-zinc-900" onClick={() => setIsMobileMenuOpen(false)}>About</Link>
+              <Link to="/menu" className="hover:text-white transition-colors text-center py-5 border-b border-zinc-900" onClick={() => setIsMobileMenuOpen(false)}>Menu</Link>
+              <Link to="/#gallery" className="hover:text-white transition-colors text-center py-5 border-b border-zinc-900" onClick={() => setIsMobileMenuOpen(false)}>Gallery</Link>
+              <Link to="/contact" className="hover:text-white transition-colors text-center py-5 border-b border-zinc-900" onClick={() => setIsMobileMenuOpen(false)}>Contact</Link>
             </div>
             
             <button 
